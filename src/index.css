@@ -1,88 +1,141 @@
+@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@theme {
+  /* ── Font ── */
+  --font-sans: "Geist Variable", sans-serif;
+
+  /* ── Brand: Navy ── */
+  --color-navy-50: #e8edf3;
+  --color-navy-100: #c2d0e0;
+  --color-navy-200: #8faac7;
+  --color-navy-400: #3a6491;
+  --color-navy-600: #1a3a5c;
+  --color-navy-800: #112847;
+  --color-navy-900: #0f2744;
+
+  /* ── Brand: Blue ── */
+  --color-blue-50: #e8f1fb;
+  --color-blue-100: #b5d4f4;
+  --color-blue-200: #82b8ed;
+  --color-blue-400: #2d84e8;
+  --color-blue-600: #1a6fd4;
+  --color-blue-800: #1a3a5c;
+  --color-blue-900: #0e2540;
+
+  /* ── Semantic: Green ── */
+  --color-green-50: #dcfce7;
+  --color-green-100: #bbf7d0;
+  --color-green-200: #86efac;
+  --color-green-400: #4ade80;
+  --color-green-600: #16a34a;
+  --color-green-800: #14532d;
+  --color-green-900: #052e16;
+
+  /* ── Semantic: Amber ── */
+  --color-amber-50: #fef3c7;
+  --color-amber-100: #fde68a;
+  --color-amber-200: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-600: #d97706;
+  --color-amber-800: #92400e;
+  --color-amber-900: #451a03;
+
+  /* ── Semantic: Red ── */
+  --color-red-50: #fee2e2;
+  --color-red-100: #fecaca;
+  --color-red-200: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-600: #dc2626;
+  --color-red-800: #991b1b;
+  --color-red-900: #450a0a;
+
+  /* ── Neutral: Gray ── */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #0f172a;
+
+  /* ── shadcn/ui tokens — map sang VocabToeic colors ── */
+  --color-background: #f9fafb; /* gray-50  */
+  --color-foreground: #0f172a; /* gray-900 */
+
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+
+  --color-primary: #0f2744; /* navy-900 */
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #e8edf3; /* navy-50  */
+  --color-secondary-foreground: #0f2744;
+
+  --color-muted: #f3f4f6; /* gray-100 */
+  --color-muted-foreground: #6b7280; /* gray-500 */
+
+  --color-accent: #1a6fd4; /* blue-600 */
+  --color-accent-foreground: #ffffff;
+
+  --color-destructive: #dc2626; /* red-600  */
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e5e7eb; /* gray-200 */
+  --color-input: #e5e7eb;
+  --color-ring: #1a6fd4; /* blue-600 */
+
+  --color-sidebar: #ffffff;
+  --color-sidebar-foreground: #0f172a;
+  --color-sidebar-primary: #0f2744;
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: #e8f1fb; /* blue-50  */
+  --color-sidebar-accent-foreground: #1a3a5c;
+  --color-sidebar-border: #e5e7eb;
+  --color-sidebar-ring: #1a6fd4;
+
+  /* ── Border radius ── */
+  --radius: 0.625rem;
+}
 
 @layer base {
-  :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.809 0.105 251.813);
-    --chart-2: oklch(0.623 0.214 259.815);
-    --chart-3: oklch(0.546 0.245 262.881);
-    --chart-4: oklch(0.488 0.243 264.376);
-    --chart-5: oklch(0.424 0.199 265.638);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0)
-  }
-  .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.809 0.105 251.813);
-    --chart-2: oklch(0.623 0.214 259.815);
-    --chart-3: oklch(0.546 0.245 262.881);
-    --chart-4: oklch(0.488 0.243 264.376);
-    --chart-5: oklch(0.424 0.199 265.638);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0)
-  }
-  .theme {
-    --font-sans: 'Geist Variable', sans-serif
-  }
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-medium text-gray-900;
+  }
+
+  /* ── Flashcard 3D flip utilities ── */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-preserve {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
   }
 }
