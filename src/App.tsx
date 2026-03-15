@@ -1,7 +1,11 @@
-import "./App.css";
+import { Button } from "./components/ui/button";
 
 function App() {
-  return <div>Hello TOEIC Up</div>;
+  return (
+    <div>
+      <Button>HELLO</Button>
+    </div>
+  );
 }
 
 export default App;
