@@ -1,23 +1,23 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/geist';
 
 @font-face {
-  font-family: "Montserrat";
-  src: url("src/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
+  font-family: 'Montserrat';
+  src: url('src/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf');
 }
 
 @font-face {
-  font-family: "Montserrat-Italic";
-  src: url("src/assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf");
+  font-family: 'Montserrat-Italic';
+  src: url('src/assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf');
   font-style: italic;
 }
 
 @theme {
   /* ── Font ── */
-  --font-normal: "Montserrat", sans-serif;
-  --font-italic: "Montserrat-Italic", sans-serif;
+  --font-normal: 'Montserrat', sans-serif;
+  --font-italic: 'Montserrat-Italic', sans-serif;
 
   /* ── Brand: Navy ── */
   --color-navy-50: #e8edf3;
@@ -153,6 +153,100 @@
 
   html,
   body {
+    scroll-behavior: smooth;
     font-family: var(--font-normal);
+  }
+}
+
+/* ── Dark Theme Colors ── */
+@layer base {
+  .dark {
+    --color-navy-50: #0f2744;
+    --color-navy-100: #112847;
+    --color-navy-200: #1a3a5c;
+    --color-navy-400: #3a6491;
+    --color-navy-600: #ffffff;
+    --color-navy-800: #8faac7;
+    --color-navy-900: #c2d0e0;
+
+    --color-blue-50: #0e2540;
+    --color-blue-100: #1a3a5c;
+    --color-blue-200: #1a6fd4;
+    --color-blue-400: #2d84e8;
+    --color-blue-600: #c2dfff;
+    --color-blue-800: #a5cbf9;
+    --color-blue-900: #e8f1fb;
+
+    --color-green-50: #052e16;
+    --color-green-100: #14532d;
+    --color-green-200: #16a34a;
+    --color-green-400: #4ade80;
+    --color-green-600: #86efac;
+    --color-green-800: #bbf7d0;
+    --color-green-900: #dcfce7;
+
+    --color-amber-50: #451a03;
+    --color-amber-100: #92400e;
+    --color-amber-200: #d97706;
+    --color-amber-400: #fbbf24;
+    --color-amber-600: #fcd34d;
+    --color-amber-800: #fde68a;
+    --color-amber-900: #fef3c7;
+
+    --color-red-50: #450a0a;
+    --color-red-100: #991b1b;
+    --color-red-200: #dc2626;
+    --color-red-400: #f87171;
+    --color-red-600: #fca5a5;
+    --color-red-800: #fecaca;
+    --color-red-900: #fee2e2;
+
+    --color-gray-50: #0f172a;
+    --color-gray-100: #1f2937;
+    --color-gray-200: #374151;
+    --color-gray-300: #4b5563;
+    --color-gray-400: #6b7280;
+    --color-gray-500: #9ca3af;
+    --color-gray-600: #d1d5db;
+    --color-gray-700: #e5e7eb;
+    --color-gray-800: #f3f4f6;
+    --color-gray-900: #f9fafb;
+
+    --color-background: #0f172a;
+    --color-foreground: #f9fafb;
+
+    --color-card: #1f2937;
+    --color-card-foreground: #f9fafb;
+
+    --color-popover: #1f2937;
+    --color-popover-foreground: #f9fafb;
+
+    --color-primary: #c2d0e0;
+    --color-primary-foreground: #0f172a;
+
+    --color-secondary: #1a3a5c;
+    --color-secondary-foreground: #c2d0e0;
+
+    --color-muted: #374151;
+    --color-muted-foreground: #9ca3af;
+
+    --color-accent: #5da3f0;
+    --color-accent-foreground: #0f172a;
+
+    --color-destructive: #f87171;
+    --color-destructive-foreground: #0f172a;
+
+    --color-border: #374151;
+    --color-input: #374151;
+    --color-ring: #5da3f0;
+
+    --color-sidebar: #1f2937;
+    --color-sidebar-foreground: #f9fafb;
+    --color-sidebar-primary: #c2d0e0;
+    --color-sidebar-primary-foreground: #0f172a;
+    --color-sidebar-accent: #1a3a5c;
+    --color-sidebar-accent-foreground: #a5cbf9;
+    --color-sidebar-border: #374151;
+    --color-sidebar-ring: #5da3f0;
   }
 }
