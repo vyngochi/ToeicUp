@@ -1,0 +1,178 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import * as z from 'zod'
+import { FcGoogle } from 'react-icons/fc'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Field } from '@/components/ui/field'
+import { useNavigate } from 'react-router-dom'
+import { StepCircle } from '@/components/common/StepCircle'
+import { StepLine } from '@/components/common/StepLine'
+import AccountForm from './AccountForm'
+import SecurityForm from './SecurityForm'
+import { Fragment, useEffect, useState } from 'react'
+import { registerSchema } from '../schemas/authSchema'
+import { cn } from '@/lib/utils'
+import GoalForm from './GoalForm'
+import { decrypt, encrypt } from '@/utils/encryptStorageData'
+import { getStorage, removeStorage, setStorage } from '@/utils/sessionHelper'
+import { STEP_KEY, STORAGE_KEY, TEMPORARY_MAIL_KEY } from '@/lib/env'
+import { STEP_FIELDS, STEPS } from '../data/registerData'
+
+export default function Register() {
+  const navigate = useNavigate()
+
+  const [step, setStep] = useState(() => {
+    const saved = getStorage(STEP_KEY)
+    return saved ? Number(saved) : 1
+  })
+
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
+    mode: 'onTouched',
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirm: '',
+      targetScore: undefined,
+      wordsPerDay: undefined,
+    },
+  })
+
+  useEffect(() => {
+    const saved = getStorage()
+
+    if (!saved) return
+
+    try {
+      const decrypted = decrypt(saved)
+
+      if (decrypted) {
+        form.reset({
+          ...decrypted,
+          password: '',
+          confirm: '',
+        })
+      }
+    } catch (err) {
+      console.error('Decrypt failed', err)
+    }
+  }, [])
+
+  useEffect(() => {
+    const subscription = form.watch((value) => {
+      const { password, confirm, ...safeData } = value
+
+      const encrypted = encrypt(safeData)
+
+      setStorage(encrypted)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [form])
+
+  useEffect(() => {
+    setStorage(JSON.stringify(step), STEP_KEY)
+  }, [step])
+
+  const handleNext = async () => {
+    const fields = STEP_FIELDS[step as keyof typeof STEP_FIELDS]
+    const isValid = await form.trigger(fields as any)
+
+    if (!isValid) return
+
+    if (step < STEPS.length) {
+      setStep(step + 1)
+    }
+  }
+
+  // data: z.infer<typeof registerSchema>
+  function onSubmit() {
+    setStorage(form.getValues().email, TEMPORARY_MAIL_KEY)
+    removeStorage([STEP_KEY, STORAGE_KEY])
+    toast.success('Your account is created successfully 🥰', { position: 'top-center' })
+    navigate('/login')
+  }
+
+  return (
+    <Card className="w-full sm:max-w-md">
+      <CardHeader>
+        <h2 className="scroll-m-20 border-b pb-2 text-center text-3xl font-semibold tracking-tight first:mt-0">
+          Đăng ký tài khoản
+        </h2>
+      </CardHeader>
+      <div className="flex items-center justify-center">
+        <div className="flex w-[80%]">
+          {STEPS.map((s, index) => (
+            <Fragment key={s.id}>
+              <StepCircle
+                step={s.id}
+                isActive={step === s.id}
+                isCompleted={step > s.id}
+                title={s.title}
+                className="h-6 w-6"
+              />
+              {index < STEPS.length - 1 && <StepLine className="mt-3" isCompleted={step > s.id} />}
+            </Fragment>
+          ))}
+        </div>
+      </div>
+
+      <CardContent>
+        <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
+          {step === 1 && <AccountForm control={form.control} />}
+          {step === 2 && <SecurityForm control={form.control} />}
+          {step === 3 && <GoalForm control={form.control} />}
+        </form>
+      </CardContent>
+      <CardFooter className="flex-col">
+        <Field orientation="vertical">
+          <div
+            className={cn('gap-2', step === 1 ? 'justify-end' : 'grid grid-cols-2 justify-between')}
+          >
+            {step > 1 && (
+              <Button
+                variant="outline"
+                type="button"
+                onClick={() => setStep(step - 1)}
+                className="h-10 rounded-3xl"
+              >
+                Trở lại
+              </Button>
+            )}
+
+            <Button
+              type="button"
+              className={cn('h-10 rounded-3xl', step === 1 && 'w-full')}
+              onClick={step === STEPS.length ? form.handleSubmit(onSubmit) : handleNext}
+            >
+              {step === 3 ? 'Hoàn tất' : 'Tiếp theo'}
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-gray-300" />
+            <span className="text-sm text-gray-400 italic">Hoặc</span>
+            <div className="h-px flex-1 bg-gray-300" />
+          </div>
+          <Button type="button" variant="outline" className="h-10 rounded-3xl">
+            <FcGoogle />
+            Đăng ký với Google
+          </Button>
+        </Field>
+        <span className="mt-2 text-xs">
+          Đã có tài khoản?{' '}
+          <span
+            className="font-italic cursor-pointer text-blue-600 hover:font-bold"
+            onClick={() => navigate('/login')}
+          >
+            Đăng nhập
+          </span>
+        </span>
+      </CardFooter>
+    </Card>
+  )
+}

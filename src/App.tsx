@@ -1,10 +1,21 @@
-import { Button } from "./components/ui/button";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router/routes";
+import { useThemeStore } from "./stores/global/themeStore";
+import { useEffect } from "react";
+import { Toaster } from "sonner";
 
 function App() {
+  const theme = useThemeStore((s) => s.theme);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
   return (
-    <div>
-      <Button>HELLO</Button>
-    </div>
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
   );
 }
 
