@@ -1,4 +1,4 @@
-import { useThemeStore } from '@/stores/themeStore'
+import { useThemeStore } from '@/stores/global/themeStore'
 import styled from 'styled-components'
 
 const ThemeToggle = () => {

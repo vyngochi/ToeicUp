@@ -1,4 +1,4 @@
-import { useThemeStore } from '@/stores/themeStore'
+import { useThemeStore } from '@/stores/global/themeStore'
 import ThemeToggle from '../common/ThemeToggle'
 import { Button } from '../ui/button'
 import * as S from './styles/Header.styled'
@@ -6,6 +6,7 @@ import { LayoutPanelLeft } from 'lucide-react'
 import { generateLogo } from '@/utils/generateLogoByTheme'
 import { useScrolled } from '@/hooks/useScroll'
 import { cn } from '@/lib/utils'
+import { useNavigate } from 'react-router-dom'
 
 interface MenuList {
   id: number
@@ -23,6 +24,7 @@ const headerMenuList: MenuList[] = [
 export default function LandingHeader() {
   const { theme } = useThemeStore()
   const scrolled = useScrolled()
+  const navigate = useNavigate()
 
   return (
     <S.HeaderWrapper
@@ -47,8 +49,15 @@ export default function LandingHeader() {
         ))}
       </div>
       <div className="hidden sm:flex sm:gap-1">
-        <Button className="w-25 bg-(--color-navy-600) font-bold">Đăng nhập</Button>
-        <Button className="w-25 bg-(--color-blue-600) font-bold">Đăng ký</Button>
+        <Button className="w-25 bg-(--color-navy-600) font-bold" onClick={() => navigate('/login')}>
+          Đăng nhập
+        </Button>
+        <Button
+          className="w-25 bg-(--color-blue-600) font-bold"
+          onClick={() => navigate('/register')}
+        >
+          Đăng ký
+        </Button>
         <ThemeToggle />
       </div>
       <LayoutPanelLeft className="font-bold hover:text-amber-400 sm:hidden" />

@@ -1,3 +1,22 @@
+import { AuthenticationTabs } from '@/components/common/AuthenticationTabs'
+import { Button } from '@/components/ui/button'
+import { useThemeStore } from '@/stores/global/themeStore'
+import { generateLogo } from '@/utils/generateLogoByTheme'
+import { useNavigate } from 'react-router-dom'
+
 export default function AuthLayout() {
-  return <div>AuthLayout</div>;
+  const { theme } = useThemeStore()
+  const logo = generateLogo(theme)
+  const navigate = useNavigate()
+  return (
+    <div className="h-screen">
+      <div className="flex items-center justify-between p-5 md:px-10">
+        <Button variant={'outline'} onClick={() => navigate('/')}>
+          Trở lại
+        </Button>
+        <img src={logo} alt="authen-logo" className="h-15 w-20" />
+      </div>
+      <AuthenticationTabs />
+    </div>
+  )
 }

@@ -2,11 +2,12 @@ import { cn } from '@/lib/utils'
 
 interface StepLineProps {
   isCompleted: boolean
+  className?: string | undefined
 }
 
-export function StepLine({ isCompleted }: StepLineProps) {
+export function StepLine({ isCompleted, className }: StepLineProps) {
   return (
-    <div className="relative mx-2 h-0.5 flex-1 bg-gray-200">
+    <div className={cn('relative mx-2 h-0.5 flex-1 bg-gray-200', className)}>
       {/* Fill animation khi completed */}
       <div
         className={cn(
