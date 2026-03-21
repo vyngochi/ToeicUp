@@ -33,7 +33,7 @@ export default function HeroSection() {
           {c.subtext}
         </p>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row md:mt-10 md:gap-5">
+        <div className="mt-8 flex items-center justify-center gap-4 sm:flex-row md:mt-10 md:gap-5">
           <Button size="lg" variant={'outline'}>
             {c.ctaPrimary}
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
