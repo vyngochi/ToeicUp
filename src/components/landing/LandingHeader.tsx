@@ -7,6 +7,7 @@ import { generateLogo } from '@/utils/generateLogoByTheme'
 import { useScrolled } from '@/hooks/useScroll'
 import { cn } from '@/lib/utils'
 import { useNavigate } from 'react-router-dom'
+import { DropdownMenuBasic } from '../common/ProfileDropdown'
 
 interface MenuList {
   id: number
@@ -60,7 +61,9 @@ export default function LandingHeader() {
         </Button>
         <ThemeToggle />
       </div>
-      <LayoutPanelLeft className="font-bold hover:text-amber-400 sm:hidden" />
+      <DropdownMenuBasic>
+        <LayoutPanelLeft className="font-bold hover:text-amber-400 sm:hidden" />
+      </DropdownMenuBasic>
     </S.HeaderWrapper>
   )
 }
