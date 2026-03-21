@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface Tab {
   id: number
@@ -13,7 +13,7 @@ const TABS: Tab[] = [
   { id: 3, value: 'forgot-password', label: 'Quên mật khẩu' },
 ]
 
-export function AuthenticationTabs() {
+export function AuthenticationTabs({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -22,7 +22,7 @@ export function AuthenticationTabs() {
       ? 'login'
       : location.pathname.includes('register')
         ? 'register'
-        : 'forgot'
+        : 'forgot-password'
   }
   return (
     <Tabs className="flex w-full items-center justify-center p-3" value={getTabName()}>
@@ -38,7 +38,7 @@ export function AuthenticationTabs() {
           </TabsTrigger>
         ))}
       </TabsList>
-      <Outlet />
+      {children}
     </Tabs>
   )
 }

@@ -2,7 +2,7 @@ import { AuthenticationTabs } from '@/components/common/AuthenticationTabs'
 import { Button } from '@/components/ui/button'
 import { useThemeStore } from '@/stores/global/themeStore'
 import { generateLogo } from '@/utils/generateLogoByTheme'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 export default function AuthLayout() {
   const { theme } = useThemeStore()
@@ -16,7 +16,9 @@ export default function AuthLayout() {
         </Button>
         <img src={logo} alt="authen-logo" className="h-15 w-20" />
       </div>
-      <AuthenticationTabs />
+      <AuthenticationTabs>
+        <Outlet />
+      </AuthenticationTabs>
     </div>
   )
 }
