@@ -143,6 +143,11 @@
   body {
     scroll-behavior: smooth;
     font-family: 'Montserrat', sans-serif;
+
+    /* GG Button */
+    #container-div {
+      width: 100%;
+    }
   }
 }
 
