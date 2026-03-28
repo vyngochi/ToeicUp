@@ -7,10 +7,10 @@ interface GuestRouteProps {
 }
 
 export function GuestRoute({ children }: GuestRouteProps) {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  const accessToken = useAuthStore((s) => s.accessToken)
 
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
+  if (accessToken) {
+    return <Navigate to="/toeicup/dashboard" replace />
   }
 
   return <>{children}</>

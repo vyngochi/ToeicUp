@@ -1,5 +1,8 @@
+import { refreshService } from '@/services/auth.service'
 import { useAuthStore } from '@/stores/global/authStore'
-import axios from 'axios'
+import type { ApiErrorResponse } from '@/types/system.types'
+import { normalizeError } from '@/utils/normalizeError'
+import axios, { AxiosError } from 'axios'
 
 type QueueItem = {
   resolve: (token: string | null) => void
@@ -13,13 +16,18 @@ const api = axios.create({
   withCredentials: true,
 })
 
+const refreshApi = axios.create({
+  baseURL: import.meta.env.VITE_BASE_BACKEND,
+  withCredentials: true,
+})
+
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken
   if (token) config.headers.Authorization = `Bearer ${token}`
   return config
 })
 
-function processQueue(error: Error | null, token: string | null) {
+function processQueue(error: AxiosError<ApiErrorResponse> | null, token: string | null) {
   failedQueue.forEach(({ resolve, reject }) => {
     if (error) {
       reject(error)
@@ -32,25 +40,27 @@ function processQueue(error: Error | null, token: string | null) {
 
 api.interceptors.response.use(
   (res) => res,
-  async (err) => {
-    if (err.response?.status === 401 && !err.config._retry) {
+  async (err: AxiosError<ApiErrorResponse>) => {
+    if (err.response?.status === 401 && err.config && !err.config._retry) {
       if (isRefreshing)
         return new Promise((resolve, reject) => failedQueue.push({ resolve, reject }))
       isRefreshing = true
       try {
-        // const { accessToken } = await authApi.refresh();
-        // useAuthStore.getState().setAccessToken(accessToken);
-        // processQueue(null, accessToken);
+        const data = await refreshService()
+        useAuthStore.getState().setAccessToken(data.data.accessToken)
+        processQueue(null, data.data.accessToken)
         err.config._retry = true
         return api(err.config)
-      } catch {
-        processQueue(new Error('Refresh failed'), null)
+      } catch (error: any) {
+        processQueue(error.message ?? error.errors, null)
         useAuthStore.getState().logout()
-        window.location.href = '/login'
       } finally {
         isRefreshing = false
       }
     }
-    return Promise.reject(err)
+
+    return Promise.reject(normalizeError(err))
   },
 )
+
+export { api, refreshApi }

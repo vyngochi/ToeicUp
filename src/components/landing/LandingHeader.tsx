@@ -4,10 +4,10 @@ import { Button } from '../ui/button'
 import * as S from './styles/Header.styled'
 import { LayoutPanelLeft } from 'lucide-react'
 import { generateLogo } from '@/utils/generateLogoByTheme'
-import { useScrolled } from '@/hooks/useScroll'
+import { useScrolled } from '@/hooks/systems/useScroll'
 import { cn } from '@/lib/utils'
 import { useNavigate } from 'react-router-dom'
-import { DropdownMenuBasic } from '../common/ProfileDropdown'
+import { DropdownMenuBasic } from '../common/LandingDropdown'
 
 interface MenuList {
   id: number
@@ -23,9 +23,12 @@ const headerMenuList: MenuList[] = [
 ]
 
 export default function LandingHeader() {
-  const { theme } = useThemeStore()
+  const theme = useThemeStore((s) => s.theme)
+  const toggleTheme = useThemeStore((s) => s.toggleTheme)
   const scrolled = useScrolled()
   const navigate = useNavigate()
+
+  console.log(theme)
 
   return (
     <S.HeaderWrapper
@@ -37,7 +40,7 @@ export default function LandingHeader() {
           : 'border-b border-transparent bg-transparent',
       )}
     >
-      <img className="h-auto w-15 md:h-auto md:w-20" src={generateLogo(theme)} />
+      <img key={theme} className="h-auto w-15 md:h-auto md:w-20" src={generateLogo(theme)} />
       <div className="hidden list-none font-bold sm:flex sm:gap-8 sm:text-[14px] md:gap-15 md:text-[16px] lg:gap-30">
         {headerMenuList.map((menu) => (
           <a
@@ -61,7 +64,7 @@ export default function LandingHeader() {
         </Button>
         <ThemeToggle />
       </div>
-      <DropdownMenuBasic>
+      <DropdownMenuBasic theme={theme} toggleTheme={toggleTheme}>
         <LayoutPanelLeft className="font-bold hover:text-amber-400 sm:hidden" />
       </DropdownMenuBasic>
     </S.HeaderWrapper>
