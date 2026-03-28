@@ -1,85 +1,47 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { Checkbox } from '@/components/ui/checkbox'
-import { useEffect } from 'react'
-import { getStorage, setStorage } from '@/utils/sessionHelper'
-import { loginSchema } from '../schemas/authSchema'
-import { TEMPORARY_MAIL_KEY } from '@/lib/env'
-import { useLogin, useLoginWithGoogle } from '@/hooks/auth/useLogin'
+import { resetPasswordSchema } from '../schemas/authSchema'
 import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/utils'
-import { GoogleLogin } from '@react-oauth/google'
-import styled from 'styled-components'
+import { useResetPassword } from '@/hooks/auth/useResetPass'
+import { useLocation } from 'react-router-dom'
 
-export default function LoginForm() {
-  const { mutate: login, isPending } = useLogin()
-  const { handleSuccess } = useLoginWithGoogle()
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+export default function ResetPasswordForm() {
+  const { mutate: reset, isPending } = useResetPassword()
+  const location = useLocation()
+  const form = useForm<z.infer<typeof resetPasswordSchema>>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      email: '',
       password: '',
+      confirm: '',
     },
   })
 
-  useEffect(() => {
-    const email = getStorage(TEMPORARY_MAIL_KEY)
-    if (!email) return
-    form.reset({ email: email })
-  }, [])
-
-  useEffect(() => {
-    const subscription = form.watch((value) => {
-      if (value.email) {
-        setStorage(value.email, TEMPORARY_MAIL_KEY)
-      }
-    })
-
-    return () => subscription.unsubscribe()
-  }, [form])
-
   const onSubmit = () => {
-    login({ email: form.getValues().email, password: form.getValues().password })
+    const token = new URLSearchParams(location.search).get('token') ?? ''
+
+    reset({
+      token: token,
+      newPassword: form.getValues().password,
+      confirmPassword: form.getValues().confirm,
+    })
   }
 
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
         <h2 className="scroll-m-20 border-b pb-2 text-center text-lg font-semibold tracking-tight first:mt-0 md:text-3xl">
-          Chào mừng bạn trở lại
+          Quên mật khẩu
         </h2>
       </CardHeader>
       <CardContent>
         <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
-            <Controller
-              name="email"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel className="text-xs" htmlFor="form-rhf-demo-title">
-                    Email
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-demo-title"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Nhập email của bạn"
-                    autoComplete="off"
-                    className="text-xs"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError className="text-xs" errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
             <Controller
               name="password"
               control={form.control}
@@ -92,7 +54,7 @@ export default function LoginForm() {
                     {...field}
                     id="form-rhf-demo-title"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Nhập mật khẩu của bạn"
+                    placeholder="Nhập mật khẩu mới"
                     autoComplete="off"
                     className="text-xs"
                   />
@@ -102,14 +64,28 @@ export default function LoginForm() {
                 </Field>
               )}
             />
-          </FieldGroup>
-          <FieldGroup className="mt-3">
-            <Field orientation="horizontal">
-              <Checkbox id="terms-checkbox-basic" name="terms-checkbox-basic" />
-              <FieldLabel className="text-xs" htmlFor="terms-checkbox-basic">
-                Ghi nhớ đăng nhập
-              </FieldLabel>
-            </Field>
+            <Controller
+              name="confirm"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel className="text-xs" htmlFor="form-rhf-demo-title">
+                    Xác nhận mật khẩu
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="form-rhf-demo-title"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="Nhập lại mật khẩu mới"
+                    autoComplete="off"
+                    className="text-xs"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError className="text-xs" errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
           </FieldGroup>
         </form>
       </CardContent>
@@ -122,31 +98,10 @@ export default function LoginForm() {
             disabled={isPending}
           >
             <Spinner data-icon="inline-start" className={cn(isPending ? '' : 'hidden')} />
-            Đăng nhập
+            Đổi mật khẩu
           </Button>
-          <div className="flex items-center gap-3">
-            <div className="h-px flex-1 bg-gray-300" />
-            <span className="text-sm text-gray-600 italic">Hoặc</span>
-            <div className="h-px flex-1 bg-gray-300" />
-          </div>
-
-          <GGButtonStyle>
-            <GoogleLogin
-              onSuccess={handleSuccess}
-              onError={() => toast.error('Login with Google failed', { position: 'top-center' })}
-              theme="outline"
-              text="signin_with"
-              shape="pill"
-            />
-          </GGButtonStyle>
         </Field>
       </CardFooter>
     </Card>
   )
 }
-
-const GGButtonStyle = styled.div`
-  span {
-    font-family: 'Montserrat', sans-serif !important;
-  }
-`

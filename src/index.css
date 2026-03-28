@@ -3,22 +3,7 @@
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/geist';
 
-@font-face {
-  font-family: 'Montserrat';
-  src: url('src/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf');
-}
-
-@font-face {
-  font-family: 'Montserrat-Italic';
-  src: url('src/assets/fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf');
-  font-style: italic;
-}
-
 @theme {
-  /* ── Font ── */
-  --font-normal: 'Montserrat', sans-serif;
-  --font-italic: 'Montserrat-Italic', sans-serif;
-
   /* ── Brand: Navy ── */
   --color-navy-50: #e8edf3;
   --color-navy-100: #c2d0e0;
@@ -116,6 +101,9 @@
 
   /* ── Border radius ── */
   --radius: 0.625rem;
+
+  /* Font Family */
+  --font-family: 'Montserrat', sans-serif;
 }
 
 @layer base {
@@ -154,7 +142,7 @@
   html,
   body {
     scroll-behavior: smooth;
-    font-family: var(--font-normal);
+    font-family: 'Montserrat', sans-serif;
   }
 }
 

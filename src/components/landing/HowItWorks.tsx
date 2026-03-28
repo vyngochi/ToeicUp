@@ -1,4 +1,4 @@
-import { useStepScroll } from '@/hooks/useStepScroll.landing'
+import { useStepScroll } from '@/hooks/systems/useStepScroll.landing'
 import { StepCircle } from '../common/StepCircle'
 import { cn } from '@/lib/utils'
 import { StepLine } from '../common/StepLine'

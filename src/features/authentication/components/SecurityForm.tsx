@@ -32,7 +32,7 @@ export default function SecurityForm({ control }: any) {
               {...field}
               id="form-rhf-demo-title"
               aria-invalid={fieldState.invalid}
-              placeholder="Xác nhận mật khẩu"
+              placeholder="Nhập lại mật khẩu mới"
               autoComplete="off"
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

@@ -7,10 +7,10 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
+  const accessToken = useAuthStore((s) => s.accessToken)
   const location = useLocation()
 
-  if (!isAuthenticated) {
+  if (!accessToken) {
     return (
       <Navigate to="/login" replace state={{ returnUrl: location.pathname + location.search }} />
     )

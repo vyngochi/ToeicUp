@@ -1,10 +1,11 @@
 import { Star, ArrowRight, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useLandingStore } from '@/stores/global/landingStore'
 import DemoImage from '@/assets/images/demo-image.png'
+import { useNavigate } from 'react-router-dom'
+import { defaultHeroContent as c } from '@/data/landingContent'
 
 export default function HeroSection() {
-  const { heroContent: c } = useLandingStore()
+  const navigate = useNavigate()
 
   return (
     <section className="relative overflow-hidden pt-25">
@@ -33,8 +34,8 @@ export default function HeroSection() {
           {c.subtext}
         </p>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row md:mt-10 md:gap-5">
-          <Button size="lg" variant={'outline'}>
+        <div className="mt-8 flex items-center justify-center gap-4 sm:flex-row md:mt-10 md:gap-5">
+          <Button size="lg" variant={'outline'} onClick={() => navigate('/register')}>
             {c.ctaPrimary}
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>

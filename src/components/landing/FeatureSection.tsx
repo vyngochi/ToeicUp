@@ -44,7 +44,7 @@ const featureArr: FeatureCardTypes[] = [
 ]
 export default function FeatureSection() {
   return (
-    <div id="feature" className="mt-5 flex items-center justify-center xl:h-screen">
+    <div id="feature" className="flex items-center justify-center pt-15 xl:h-screen">
       <div className="w-[70%] text-center md:w-[80%]">
         <div className="mb-2 font-medium text-(--color-blue-600) md:text-xl">TÍNH NĂNG</div>
         <div className="text-xl font-medium md:text-3xl lg:text-4xl">
