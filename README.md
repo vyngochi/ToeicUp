@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Toeic Up Banner](https://img.shields.io/badge/VocabToeic-TOEIC%20Learning%20Platform-0F2744?style=for-the-badge&logoColor=white)
+![Toeic Up Banner](https://img.shields.io/badge/ToeicUp%20Learning%20Platform-0F2744?style=for-the-badge&logoColor=white)
 
 **Nền tảng học từ vựng và luyện thi TOEIC thông minh, tích hợp Claude AI**
 
