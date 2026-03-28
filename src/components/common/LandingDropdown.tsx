@@ -6,10 +6,28 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Moon, SunMedium } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-export function DropdownMenuBasic({ children }: { children: React.ReactNode }) {
+interface LandingDropdownProps {
+  children: React.ReactNode
+  theme: string
+  toggleTheme: () => void
+}
+
+export function DropdownMenuBasic({ children, theme, toggleTheme }: LandingDropdownProps) {
   const navigate = useNavigate()
+  const themeIcon = () => {
+    return theme === 'dark' ? (
+      <>
+        <SunMedium /> Light mode
+      </>
+    ) : (
+      <>
+        <Moon /> Dark mode
+      </>
+    )
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
@@ -18,7 +36,7 @@ export function DropdownMenuBasic({ children }: { children: React.ReactNode }) {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => navigate('/login')}>Đăng nhập</DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate('/register')}>Đăng ký</DropdownMenuItem>
-          <DropdownMenuItem>Cài đặt</DropdownMenuItem>
+          <DropdownMenuItem onClick={toggleTheme}>{themeIcon()}</DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

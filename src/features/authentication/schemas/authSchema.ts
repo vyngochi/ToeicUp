@@ -1,5 +1,5 @@
 // features/auth/schemas/loginSchema.ts
-import { z } from 'zod'
+import { check, z } from 'zod'
 
 export const loginSchema = z.object({
   email: z.email('Email không hợp lệ'),
@@ -22,6 +22,26 @@ export const registerSchema = z
       .number({ error: 'Vui lòng chọn số từ mỗi ngày' })
       .refine((v) => [5, 10, 20, 30].includes(v), 'Số từ không hợp lệ')
       .optional(),
+  })
+  .refine(
+    (data) => {
+      if (!data.password || !data.confirm) return true
+      return data.password === data.confirm
+    },
+    {
+      message: 'Mật khẩu không khớp',
+      path: ['confirm'],
+    },
+  )
+
+export const forgotPasswordSchema = z.object({
+  email: z.email('Email không hợp lệ'),
+})
+
+export const resetPasswordSchema = z
+  .object({
+    password: z.string().min(1, 'Mật khẩu không được để trống'),
+    confirm: z.string().min(1, 'Mật khẩu không được để trống'),
   })
   .refine(
     (data) => {

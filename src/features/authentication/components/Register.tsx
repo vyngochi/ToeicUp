@@ -89,7 +89,6 @@ export default function Register() {
     }
   }
 
-  // data: z.infer<typeof registerSchema>
   function onSubmit() {
     setStorage(form.getValues().email, TEMPORARY_MAIL_KEY)
     removeStorage([STEP_KEY, STORAGE_KEY])
@@ -163,15 +162,6 @@ export default function Register() {
             Đăng ký với Google
           </Button>
         </Field>
-        <span className="mt-2 text-xs">
-          Đã có tài khoản?{' '}
-          <span
-            className="font-italic cursor-pointer text-blue-600 hover:font-bold"
-            onClick={() => navigate('/login')}
-          >
-            Đăng nhập
-          </span>
-        </span>
       </CardFooter>
     </Card>
   )

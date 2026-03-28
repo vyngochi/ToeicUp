@@ -101,6 +101,9 @@
 
   /* ── Border radius ── */
   --radius: 0.625rem;
+
+  /* Font Family */
+  --font-family: 'Montserrat', sans-serif;
 }
 
 @layer base {
