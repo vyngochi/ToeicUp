@@ -19,7 +19,7 @@ import styled from 'styled-components'
 
 export default function LoginForm() {
   const { mutate: login, isPending } = useLogin()
-  const { handleSuccess } = useLoginWithGoogle()
+  const { handleSuccess, isPending: loginGGPending } = useLoginWithGoogle()
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -131,14 +131,21 @@ export default function LoginForm() {
           </div>
 
           <GGButtonStyle>
-            <GoogleLogin
-              onSuccess={handleSuccess}
-              onError={() => toast.error('Login with Google failed', { position: 'top-center' })}
-              theme="outline"
-              text="signin_with"
-              shape="pill"
-              width={400}
-            />
+            {loginGGPending ? (
+              <Button>
+                <Spinner />
+                Đang đăng nhập ...
+              </Button>
+            ) : (
+              <GoogleLogin
+                onSuccess={handleSuccess}
+                onError={() => toast.error('Lỗi khi đăng nhập với Google')}
+                theme="outline"
+                text="signin_with"
+                shape="pill"
+                width={400}
+              />
+            )}
           </GGButtonStyle>
         </Field>
       </CardFooter>
