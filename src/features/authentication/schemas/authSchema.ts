@@ -1,5 +1,5 @@
 // features/auth/schemas/loginSchema.ts
-import { check, z } from 'zod'
+import { z } from 'zod'
 
 export const loginSchema = z.object({
   email: z.email('Email không hợp lệ'),
