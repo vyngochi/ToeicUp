@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as z from 'zod'
-import { FcGoogle } from 'react-icons/fc'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Field } from '@/components/ui/field'
@@ -19,9 +18,14 @@ import { decrypt, encrypt } from '@/utils/encryptStorageData'
 import { getStorage, removeStorage, setStorage } from '@/utils/sessionHelper'
 import { STEP_KEY, STORAGE_KEY, TEMPORARY_MAIL_KEY } from '@/lib/env'
 import { STEP_FIELDS, STEPS } from '../data/registerData'
+import { GoogleLogin } from '@react-oauth/google'
+import { useLoginWithGoogle } from '@/hooks/auth/useLogin'
+import styled from 'styled-components'
+import { Spinner } from '@/components/ui/spinner'
 
 export default function Register() {
   const navigate = useNavigate()
+  const { handleSuccess, isPending: signUpGGPending, isSuccess } = useLoginWithGoogle()
 
   const [step, setStep] = useState(() => {
     const saved = getStorage(STEP_KEY)
@@ -96,6 +100,10 @@ export default function Register() {
     navigate('/login')
   }
 
+  const handleSignUpWithGG = (credentialResponse: any) => {
+    handleSuccess(credentialResponse)
+  }
+
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
@@ -157,12 +165,35 @@ export default function Register() {
             <span className="text-sm text-gray-400 italic">Hoặc</span>
             <div className="h-px flex-1 bg-gray-300" />
           </div>
-          <Button type="button" variant="outline" className="h-10 rounded-3xl">
-            <FcGoogle />
-            Đăng ký với Google
-          </Button>
+          <GGButtonStyle>
+            {signUpGGPending ? (
+              <Button>
+                <Spinner />
+                Đang đăng ký ...
+              </Button>
+            ) : (
+              <GoogleLogin
+                onSuccess={handleSignUpWithGG}
+                onError={() => toast.error('Lỗi khi đăng ký với Google')}
+                theme="outline"
+                text="signup_with"
+                shape="pill"
+                width={400}
+              />
+            )}
+          </GGButtonStyle>
         </Field>
       </CardFooter>
     </Card>
   )
 }
+
+const GGButtonStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-family: 'Montserrat', sans-serif !important;
+  }
+`

@@ -59,5 +59,5 @@ export const useLoginWithGoogle = () => {
     await mutation.mutateAsync({ idToken: idToken })
   }
 
-  return { handleSuccess, isPending: mutation.isPending }
+  return { handleSuccess, isPending: mutation.isPending, isSuccess: mutation.isSuccess }
 }
