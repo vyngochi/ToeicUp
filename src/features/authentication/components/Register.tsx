@@ -96,7 +96,7 @@ export default function Register() {
   function onSubmit() {
     setStorage(form.getValues().email, TEMPORARY_MAIL_KEY)
     removeStorage([STEP_KEY, STORAGE_KEY])
-    toast.success('Your account is created successfully 🥰', { position: 'top-center' })
+    toast.success('Your account is created successfully 🥰')
     navigate('/login')
   }
 
