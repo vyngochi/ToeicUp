@@ -146,6 +146,12 @@ export default function LoginForm() {
 }
 
 const GGButtonStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    width: 100%;
+  }
   span {
     font-family: 'Montserrat', sans-serif !important;
   }
