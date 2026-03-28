@@ -149,9 +149,12 @@ const GGButtonStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  #container-div,
   div {
     width: 100%;
   }
+
   span {
     font-family: 'Montserrat', sans-serif !important;
   }
