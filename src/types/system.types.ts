@@ -10,8 +10,8 @@ export interface ApiErrorResponse {
   errors?: Record<string, string[]>
 }
 
-export interface NormalizedError {
+export interface NormalizedError<T = Record<string, string[]>> {
   status: number
   message: string
-  errors?: Record<string, string[]>
+  errors?: Partial<Record<keyof T, string[]>>
 }

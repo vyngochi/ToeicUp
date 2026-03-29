@@ -5,7 +5,6 @@ import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Field } from '@/components/ui/field'
-import { useNavigate } from 'react-router-dom'
 import { StepCircle } from '@/components/common/StepCircle'
 import { StepLine } from '@/components/common/StepLine'
 import AccountForm from './AccountForm'
@@ -15,22 +14,24 @@ import { registerSchema } from '../schemas/authSchema'
 import { cn } from '@/lib/utils'
 import GoalForm from './GoalForm'
 import { decrypt, encrypt } from '@/utils/encryptStorageData'
-import { getStorage, removeStorage, setStorage } from '@/utils/sessionHelper'
-import { STEP_KEY, STORAGE_KEY, TEMPORARY_MAIL_KEY } from '@/lib/env'
+import { getStorage, setStorage } from '@/utils/sessionHelper'
+import { STEP_KEY, TEMPORARY_MAIL_KEY } from '@/lib/env'
 import { STEP_FIELDS, STEPS } from '../data/registerData'
 import { GoogleLogin } from '@react-oauth/google'
 import { useLoginWithGoogle } from '@/hooks/auth/useLogin'
 import styled from 'styled-components'
 import { Spinner } from '@/components/ui/spinner'
+import { useRegister } from '@/hooks/auth/useRegister'
 
 export default function Register() {
-  const navigate = useNavigate()
-  const { handleSuccess, isPending: signUpGGPending, isSuccess } = useLoginWithGoogle()
+  const { handleSuccess, isPending: signUpGGPending } = useLoginWithGoogle()
 
   const [step, setStep] = useState(() => {
     const saved = getStorage(STEP_KEY)
     return saved ? Number(saved) : 1
   })
+
+  const { mutate: register, isPending } = useRegister({ setStep })
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -41,8 +42,8 @@ export default function Register() {
       email: '',
       password: '',
       confirm: '',
-      targetScore: undefined,
-      wordsPerDay: undefined,
+      targetScore: 450,
+      wordsPerDay: 5,
     },
   })
 
@@ -95,9 +96,11 @@ export default function Register() {
 
   function onSubmit() {
     setStorage(form.getValues().email, TEMPORARY_MAIL_KEY)
-    removeStorage([STEP_KEY, STORAGE_KEY])
-    toast.success('Your account is created successfully 🥰')
-    navigate('/login')
+    register({
+      ...form.getValues(),
+      confirmPassword: form.getValues().confirm,
+      fullName: form.getValues().firstName + form.getValues().lastName,
+    })
   }
 
   const handleSignUpWithGG = (credentialResponse: any) => {
@@ -155,7 +158,9 @@ export default function Register() {
               type="button"
               className={cn('h-10 rounded-3xl', step === 1 && 'w-full')}
               onClick={step === STEPS.length ? form.handleSubmit(onSubmit) : handleNext}
+              disabled={isPending}
             >
+              {isPending && <Spinner />}
               {step === 3 ? 'Hoàn tất' : 'Tiếp theo'}
             </Button>
           </div>

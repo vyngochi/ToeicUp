@@ -8,10 +8,22 @@ import type {
   ForgotPayload,
   LogoutResponse as ResetResponse,
   ResetPasswordPayload,
+  RegisterPayload,
+  RegisterResponse,
+  VerifyEmailPayload,
+  LoginResponse as VeifyEmailResponse,
 } from '@/types/auth.types'
 
 export const loginService = (payload: LoginPayload) => {
   return api.post<LoginResponse>('/api/Auth/login', payload)
+}
+
+export const registerService = (payload: RegisterPayload) => {
+  return api.post<RegisterResponse>('/api/Auth/register', payload)
+}
+
+export const verifyRegisterEmail = (payload: VerifyEmailPayload) => {
+  return api.post<VeifyEmailResponse>('/api/Auth/verify-email', payload)
 }
 
 export const loginGoogleService = (payload: LoginWithGooglePayload) => {

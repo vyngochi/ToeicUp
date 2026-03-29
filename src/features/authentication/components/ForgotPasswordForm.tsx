@@ -133,7 +133,7 @@ export default function ForgotPasswordForm() {
               disabled={isPending}
             >
               <Spinner data-icon="inline-start" className={cn(isPending ? '' : 'hidden')} />
-              Nhận e-mail
+              Nhận email xác thực
             </Button>
           )}
         </Field>

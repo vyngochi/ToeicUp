@@ -1,19 +1,17 @@
-import { Navigate, useLocation } from 'react-router-dom'
-import { useAuthStore } from '@/stores/global/authStore'
+import { Navigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
+import { useAuthStore } from '@/stores/global/authStore'
 
 interface ProtectedRouteProps {
   children: ReactNode
+  redirectTo?: string
 }
 
-export function ProtectedRoute({ children }: ProtectedRouteProps) {
+export function ProtectedRoute({ children, redirectTo = '/' }: ProtectedRouteProps) {
   const accessToken = useAuthStore((s) => s.accessToken)
-  const location = useLocation()
 
   if (!accessToken) {
-    return (
-      <Navigate to="/login" replace state={{ returnUrl: location.pathname + location.search }} />
-    )
+    return <Navigate to={redirectTo} replace />
   }
 
   return <>{children}</>

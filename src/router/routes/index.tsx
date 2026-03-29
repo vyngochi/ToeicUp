@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: (
       <SuspenseWrapper name="Landing Page">
-        <GuestRoute>
+        <GuestRoute redirectTo="/toeicup/dashboard">
           <LandingPage />
         </GuestRoute>
       </SuspenseWrapper>
