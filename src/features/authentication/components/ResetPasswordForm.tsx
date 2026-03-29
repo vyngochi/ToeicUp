@@ -9,10 +9,12 @@ import { resetPasswordSchema } from '../schemas/authSchema'
 import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/utils'
 import { useResetPassword } from '@/hooks/auth/useResetPass'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export default function ResetPasswordForm() {
   const { mutate: reset, isPending } = useResetPassword()
+  const navigate = useNavigate()
   const location = useLocation()
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
@@ -24,6 +26,12 @@ export default function ResetPasswordForm() {
 
   const onSubmit = () => {
     const token = new URLSearchParams(location.search).get('token') ?? ''
+
+    if (!token) {
+      toast.warning('Please fill out your email')
+      navigate('/forgot-password')
+      return
+    }
 
     reset({
       token: token,

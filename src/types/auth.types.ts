@@ -17,6 +17,27 @@ export type LoginResponse = {
   user: UserResponse
 }
 
+//Register
+export type RegisterPayload = {
+  email: string
+  password: string
+  confirmPassword: string
+  fullName: string
+  targetScore: number
+  wordsPerDay: number
+}
+
+export type RegisterResponse = {
+  userId: string
+  email: string
+  displayName: string
+  message: string
+}
+
+export type VerifyEmailPayload = {
+  token: string
+}
+
 //Logout
 export type LogoutResponse = {
   message: string

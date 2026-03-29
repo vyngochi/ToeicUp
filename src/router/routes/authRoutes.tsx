@@ -12,11 +12,12 @@ const ForgotPasswordPage = lazy(
 const ResetPasswordPage = lazy(
   () => import('@/features/authentication/components/ResetPasswordForm'),
 )
+const VerifyEmailPage = lazy(() => import('@/features/authentication/components/VerifyEmail'))
 
 export const authRoutes: RouteObject[] = [
   {
     element: (
-      <GuestRoute>
+      <GuestRoute redirectTo="/toeicup/dashboard">
         <AuthLayout />
       </GuestRoute>
     ),
@@ -50,6 +51,14 @@ export const authRoutes: RouteObject[] = [
         element: (
           <SuspenseWrapper name="Forgot Password Form">
             <ResetPasswordPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: '/verify-email',
+        element: (
+          <SuspenseWrapper name="Forgot Password Form">
+            <VerifyEmailPage />
           </SuspenseWrapper>
         ),
       },
