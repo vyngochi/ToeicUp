@@ -177,13 +177,16 @@ export default function Register() {
                 Đang đăng ký ...
               </Button>
             ) : (
-              <GoogleLogin
-                onSuccess={handleSignUpWithGG}
-                onError={() => toast.error('Lỗi khi đăng ký với Google')}
-                theme="outline"
-                text="signup_with"
-                shape="pill"
-              />
+              <div className="flex-1">
+                <GoogleLogin
+                  onSuccess={handleSignUpWithGG}
+                  onError={() => toast.error('Lỗi khi đăng ký với Google')}
+                  theme="outline"
+                  text="signup_with"
+                  shape="pill"
+                  width={'100%'}
+                />
+              </div>
             )}
           </GGButtonStyle>
         </Field>
@@ -196,10 +199,6 @@ const GGButtonStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  div {
-    width: 100%;
-  }
 
   span {
     font-family: 'Montserrat', sans-serif !important;
