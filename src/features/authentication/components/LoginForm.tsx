@@ -165,7 +165,6 @@ export default function LoginForm() {
                 theme="outline"
                 text="signin_with"
                 shape="pill"
-                width={'100%'}
               />
             )}
           </GGButtonStyle>
@@ -181,28 +180,10 @@ const GGButtonStyle = styled.div`
   align-items: center;
 
   div {
-    min-width: 250px;
+    width: 100%;
   }
 
   span {
     font-family: 'Montserrat', sans-serif !important;
-  }
-
-  @media screen and (min-width: 375px) {
-    div {
-      min-width: 300px;
-    }
-  }
-
-  @media screen and (min-width: 425px) {
-    div {
-      min-width: 350px;
-    }
-  }
-
-  @media screen and (min-width: 767.98px) {
-    div {
-      min-width: 400px;
-    }
   }
 `
