@@ -1,4 +1,4 @@
-import AuthLayout from '@/layouts/AuthLayout'
+import AuthLayout, { AuthLayoutNoTabs } from '@/layouts/AuthLayout'
 import { lazy } from 'react'
 import type { RouteObject } from 'react-router-dom'
 import { SuspenseWrapper } from '../guards/LazyLoading'
@@ -14,10 +14,12 @@ const ResetPasswordPage = lazy(
 )
 const VerifyEmailPage = lazy(() => import('@/features/authentication/components/VerifyEmail'))
 
+const SetNewPasswordPage = lazy(() => import('@/features/authentication/components/SetNewPassword'))
+
 export const authRoutes: RouteObject[] = [
   {
     element: (
-      <GuestRoute redirectTo="/toeicup/dashboard">
+      <GuestRoute redirectTo="/dashboard">
         <AuthLayout />
       </GuestRoute>
     ),
@@ -43,9 +45,19 @@ export const authRoutes: RouteObject[] = [
         element: (
           <SuspenseWrapper name="Forgot Password Form">
             <ForgotPasswordPage />
+            ``
           </SuspenseWrapper>
         ),
       },
+    ],
+  },
+  {
+    element: (
+      <GuestRoute>
+        <AuthLayoutNoTabs />
+      </GuestRoute>
+    ),
+    children: [
       {
         path: '/reset-password',
         element: (
@@ -59,6 +71,14 @@ export const authRoutes: RouteObject[] = [
         element: (
           <SuspenseWrapper name="Forgot Password Form">
             <VerifyEmailPage />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: '/set-password',
+        element: (
+          <SuspenseWrapper name="Forgot Password Form">
+            <SetNewPasswordPage />
           </SuspenseWrapper>
         ),
       },

@@ -23,8 +23,6 @@ export default function VerifyEmail() {
 
   const isRegister = getStorage(IS_VERIFIED) === 'true'
 
-  console.log(isRegister)
-
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>

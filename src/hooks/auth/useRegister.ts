@@ -49,7 +49,7 @@ export const useVerifyEmailRegister = () => {
     onSuccess: (data) => {
       loginStore(data.accessToken, data.user, true)
       toast.success(AUTH_MESSAGE.REGISTER.SUCCESS)
-      navigate('/toeicup/dashboard')
+      navigate('/dashboard')
     },
     onError: (error: NormalizedError<VerifyError>) => {
       toast.error(error.message || error.errors?.token)
