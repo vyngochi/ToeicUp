@@ -45,3 +45,7 @@ export const sendMailForgotPassword = (payload: ForgotPayload) => {
 export const resetPasswordService = (payload: ResetPasswordPayload) => {
   return api.post<ResetResponse>('/api/Auth/reset-password', payload)
 }
+
+export const setNewPassService = (payload: ResetPasswordPayload) => {
+  return api.post<ResetResponse>('/api/Auth/set-password', payload)
+}

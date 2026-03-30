@@ -46,3 +46,8 @@ export const resetPasswordSchema = z
       path: ['confirm'],
     },
   )
+
+export const setTargetSchema = z.object({
+  targetScore: z.number(),
+  wordsPerDay: z.number(),
+})

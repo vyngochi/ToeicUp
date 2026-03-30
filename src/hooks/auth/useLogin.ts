@@ -22,7 +22,7 @@ export const useLogin = () => {
       toast.success('Login successfully', { position: 'top-center' })
       loginStore(data.accessToken, data.user, true)
       removeStorage([TEMPORARY_MAIL_KEY])
-      navigate('/toeicup/dashboard')
+      navigate('/dashboard')
     },
     onError: (error: NormalizedError) => {
       toast.error(error.message, { position: 'top-center' })
@@ -42,7 +42,7 @@ export const useLoginWithGoogleServer = () => {
     onSuccess: (data) => {
       loginStore(data.accessToken, data.user, true)
       toast.success(AUTH_MESSAGE.LOGIN.SUCCESS)
-      navigate('/toeicup/dashboard')
+      navigate('/dashboard')
     },
     onError: (error: NormalizedError) => {
       toast.error(error.message)
@@ -52,11 +52,16 @@ export const useLoginWithGoogleServer = () => {
 
 export const useLoginWithGoogle = () => {
   const mutation = useLoginWithGoogleServer()
+  const setIsLoggedWithGG = useAuthStore((s) => s.setIsLoggedWithGG)
 
   const handleSuccess = async (credentialResponse: any) => {
     const idToken = credentialResponse.credential
 
-    await mutation.mutateAsync({ idToken: idToken })
+    const data = await mutation.mutateAsync({ idToken: idToken })
+
+    if (!data.user.targetScore) {
+      setIsLoggedWithGG(true)
+    }
   }
 
   return { handleSuccess, isPending: mutation.isPending, isSuccess: mutation.isSuccess }

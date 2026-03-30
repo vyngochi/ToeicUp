@@ -19,7 +19,6 @@ export const useInitAuth = () => {
       }
     },
     retry: false,
-    staleTime: Infinity,
     refetchOnWindowFocus: false,
   })
 }

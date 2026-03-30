@@ -6,7 +6,6 @@ import { ProtectedRoute } from '../guards/ProtectedRoute'
 
 export const learningRoutes: RouteObject[] = [
   {
-    path: 'toeicup',
     element: (
       <ProtectedRoute redirectTo="/login">
         <MainLayout />
