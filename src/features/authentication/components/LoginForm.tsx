@@ -165,7 +165,7 @@ export default function LoginForm() {
                 theme="outline"
                 text="signin_with"
                 shape="pill"
-                // width={400}
+                width={'100%'}
               />
             )}
           </GGButtonStyle>
@@ -179,10 +179,6 @@ const GGButtonStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  div {
-    width: 100%;
-  }
 
   span {
     font-family: 'Montserrat', sans-serif !important;
