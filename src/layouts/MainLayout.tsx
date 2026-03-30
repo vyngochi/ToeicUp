@@ -9,6 +9,7 @@ import { Outlet } from 'react-router-dom'
 export default function MainLayout() {
   const isLoggedWithGG = useAuthStore((s) => s.isLoggedWithGG)
   const setIsLoggedWithGG = useAuthStore((s) => s.setIsLoggedWithGG)
+  const user = useAuthStore((s) => s.user)
 
   return (
     <SidebarProvider>
@@ -17,7 +18,7 @@ export default function MainLayout() {
         <header className="bg-sidebar flex h-13 items-center justify-between border-b border-gray-200 px-4">
           <SidebarTrigger />
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={user?.avatarUrl ?? 'https://github.com/shadcn.png'} />
             <AvatarFallback>TUP</AvatarFallback>
             <AvatarBadge className="bg-green-600 dark:bg-green-800" />
           </Avatar>
