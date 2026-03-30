@@ -159,13 +159,16 @@ export default function LoginForm() {
                 Đang đăng nhập ...
               </Button>
             ) : (
-              <GoogleLogin
-                onSuccess={handleSuccess}
-                onError={() => toast.error('Lỗi khi đăng nhập với Google')}
-                theme="outline"
-                text="signin_with"
-                shape="pill"
-              />
+              <div className="flex-1">
+                <GoogleLogin
+                  onSuccess={handleSuccess}
+                  onError={() => toast.error('Lỗi khi đăng nhập với Google')}
+                  theme="outline"
+                  text="signin_with"
+                  shape="pill"
+                  width={'100%'}
+                />
+              </div>
             )}
           </GGButtonStyle>
         </Field>
@@ -178,10 +181,6 @@ const GGButtonStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  div {
-    width: 100%;
-  }
 
   span {
     font-family: 'Montserrat', sans-serif !important;
