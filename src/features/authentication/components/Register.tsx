@@ -9,7 +9,7 @@ import { StepCircle } from '@/components/common/StepCircle'
 import { StepLine } from '@/components/common/StepLine'
 import AccountForm from './AccountForm'
 import SecurityForm from './SecurityForm'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { registerSchema } from '../schemas/authSchema'
 import { cn } from '@/lib/utils'
 import GoalForm from './GoalForm'
@@ -25,7 +25,8 @@ import { useRegister } from '@/hooks/auth/useRegister'
 
 export default function Register() {
   const { handleSuccess, isPending: signUpGGPending } = useLoginWithGoogle()
-
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [btnWidth, setBtnWidth] = useState(0)
   const [step, setStep] = useState(() => {
     const saved = getStorage(STEP_KEY)
     return saved ? Number(saved) : 1
@@ -107,6 +108,18 @@ export default function Register() {
     handleSuccess(credentialResponse)
   }
 
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new ResizeObserver(([entry]) => {
+      setBtnWidth(entry.contentRect.width)
+    })
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
@@ -170,23 +183,23 @@ export default function Register() {
             <span className="text-sm text-gray-400 italic">Hoặc</span>
             <div className="h-px flex-1 bg-gray-300" />
           </div>
-          <GGButtonStyle>
+          <GGButtonStyle ref={containerRef}>
             {signUpGGPending ? (
               <Button>
                 <Spinner />
                 Đang đăng ký ...
               </Button>
             ) : (
-              <div className="flex-1">
+              btnWidth > 0 && (
                 <GoogleLogin
                   onSuccess={handleSignUpWithGG}
                   onError={() => toast.error('Lỗi khi đăng ký với Google')}
                   theme="outline"
                   text="signup_with"
                   shape="pill"
-                  width={'100%'}
+                  width={btnWidth}
                 />
-              </div>
+              )
             )}
           </GGButtonStyle>
         </Field>
@@ -199,6 +212,7 @@ const GGButtonStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   span {
     font-family: 'Montserrat', sans-serif !important;
