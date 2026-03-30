@@ -19,6 +19,7 @@ const api = axios.create({
 const refreshApi = axios.create({
   baseURL: import.meta.env.VITE_BASE_BACKEND,
   withCredentials: true,
+  timeout: 10000,
 })
 
 api.interceptors.request.use((config) => {

@@ -180,7 +180,29 @@ const GGButtonStyle = styled.div`
   justify-content: center;
   align-items: center;
 
+  div {
+    min-width: 250px;
+  }
+
   span {
     font-family: 'Montserrat', sans-serif !important;
+  }
+
+  @media screen and (min-width: 375px) {
+    div {
+      min-width: 300px;
+    }
+  }
+
+  @media screen and (min-width: 425px) {
+    div {
+      min-width: 350px;
+    }
+  }
+
+  @media screen and (min-width: 767.98px) {
+    div {
+      min-width: 400px;
+    }
   }
 `
