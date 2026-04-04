@@ -1,11 +1,10 @@
-import { IS_VERIFIED } from '@/lib/env'
+import { IS_VERIFIED, STORAGE_KEY } from '@/lib/env'
 import { AUTH_MESSAGE } from '@/messages/auth.message'
 import { registerService, verifyRegisterEmail } from '@/services/auth.service'
 import { useAuthStore } from '@/stores/global/authStore'
 import type { RegisterPayload, VerifyEmailPayload } from '@/types/auth.types'
-import type { RegisterError, VerifyError } from '@/types/error.types'
-import type { NormalizedError } from '@/types/system.types'
-import { setStorage } from '@/utils/sessionHelper'
+import { handleServerError } from '@/utils/handleServerError'
+import { removeStorage, setStorage } from '@/utils/sessionHelper'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -22,17 +21,20 @@ export const useRegister = ({ setStep }: Props) => {
       return response.data
     },
     onSuccess: (data) => {
-      toast.success(data.message)
       setStorage(JSON.stringify(true), IS_VERIFIED)
+      removeStorage([STORAGE_KEY])
+      setStep(1)
+      toast.success(data.message)
       navigate('/verify-email')
     },
-    onError: (error: NormalizedError<RegisterError>) => {
-      if (error.errors?.Email || error.errors?.email) {
+    onError: (error: any) => {
+      const errorData = error.response.data
+      if (errorData.errors?.email) {
         setStep(1)
-      } else if (error.errors?.Password) {
+      } else if (errorData.errors?.password) {
         setStep(2)
       }
-      toast.error(error.errors?.email ?? error.errors?.Email ?? error.errors?.Password?.[0])
+      handleServerError(error)
     },
   })
 }
@@ -44,15 +46,15 @@ export const useVerifyEmailRegister = () => {
     mutationKey: ['verify-email'],
     mutationFn: async (payload: VerifyEmailPayload) => {
       const response = await verifyRegisterEmail(payload)
-      return response.data
+      return response.data.data
     },
     onSuccess: (data) => {
-      loginStore(data.accessToken, data.user, true)
+      loginStore(data?.accessToken!, data?.user!, true)
       toast.success(AUTH_MESSAGE.REGISTER.SUCCESS)
       navigate('/dashboard')
     },
-    onError: (error: NormalizedError<VerifyError>) => {
-      toast.error(error.message || error.errors?.token)
+    onError: (error: any) => {
+      handleServerError(error)
     },
   })
 }

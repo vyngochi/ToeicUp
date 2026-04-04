@@ -10,10 +10,8 @@ export type LoginWithGooglePayload = {
   idToken: string
 }
 
-export type LoginResponse = {
+export type AuthResponse = {
   accessToken: string
-  expiresIn: number
-  rawRefreshToken: string | null
   user: UserResponse
 }
 
@@ -36,11 +34,6 @@ export type RegisterResponse = {
 
 export type VerifyEmailPayload = {
   token: string
-}
-
-//Logout
-export type LogoutResponse = {
-  message: string
 }
 
 //Forgot

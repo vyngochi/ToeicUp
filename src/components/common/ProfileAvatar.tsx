@@ -21,12 +21,16 @@ export function DropdownMenuAvatar() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <Avatar>
-            <AvatarImage src={user?.avatarUrl ?? 'https://github.com/shadcn.png'} />
-            <AvatarFallback>TUP</AvatarFallback>
-            <AvatarBadge className="bg-green-600 dark:bg-green-800" />
-          </Avatar>
+        <Button variant={isPending ? 'outline' : 'ghost'} size="icon" className="rounded-full">
+          {isPending ? (
+            <Spinner />
+          ) : (
+            <Avatar>
+              <AvatarImage src={user?.avatarUrl ?? 'https://github.com/shadcn.png'} />
+              <AvatarFallback>TUP</AvatarFallback>
+              <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+            </Avatar>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -41,7 +45,15 @@ export function DropdownMenuAvatar() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => logoutServer()}>
+        <DropdownMenuItem
+          onClick={() => logoutServer()}
+          onSelect={(e) => {
+            if (isPending) {
+              e.preventDefault()
+            }
+          }}
+          disabled={isPending}
+        >
           {isPending ? <Spinner /> : <LogOutIcon />}
           Đăng xuất
         </DropdownMenuItem>

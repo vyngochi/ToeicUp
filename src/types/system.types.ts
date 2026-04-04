@@ -5,13 +5,14 @@ declare module 'axios' {
   }
 }
 
-export interface ApiErrorResponse {
-  message?: string
-  errors?: Record<string, string[]>
+export interface CommonResponse<T> {
+  statusCode: string
+  message: string
+  data?: T
 }
 
-export interface NormalizedError<T = Record<string, string[]>> {
-  status: number
+export interface ApiErrorResponse {
+  statusCode: string
   message: string
-  errors?: Partial<Record<keyof T, string[]>>
+  errors?: Record<string, string[]>
 }
