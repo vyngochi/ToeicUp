@@ -3,7 +3,8 @@ import { AUTH_MESSAGE } from '@/messages/auth.message'
 import { loginGoogleService, loginService } from '@/services/auth.service'
 import { useAuthStore } from '@/stores/global/authStore'
 import type { LoginPayload, LoginWithGooglePayload } from '@/types/auth.types'
-import type { NormalizedError } from '@/types/system.types'
+import type { ApiErrorResponse } from '@/types/system.types'
+import { extractFirstFieldError, handleServerError } from '@/utils/handleServerError'
 import { removeStorage } from '@/utils/sessionHelper'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
@@ -19,13 +20,13 @@ export const useLogin = () => {
       return response.data
     },
     onSuccess: (data) => {
-      toast.success('Login successfully', { position: 'top-center' })
-      loginStore(data.accessToken, data.user, true)
+      loginStore(data.data?.accessToken!, data.data?.user!, true)
+      toast.success(data.message || AUTH_MESSAGE.LOGIN.SUCCESS)
       removeStorage([TEMPORARY_MAIL_KEY])
-      navigate('/toeicup/dashboard')
+      navigate('/dashboard')
     },
-    onError: (error: NormalizedError) => {
-      toast.error(error.message, { position: 'top-center' })
+    onError: (error: any) => {
+      handleServerError(error)
     },
   })
 }
@@ -40,23 +41,29 @@ export const useLoginWithGoogleServer = () => {
       return response.data
     },
     onSuccess: (data) => {
-      loginStore(data.accessToken, data.user, true)
-      toast.success(AUTH_MESSAGE.LOGIN.SUCCESS)
-      navigate('/toeicup/dashboard')
+      loginStore(data.data?.accessToken!, data.data?.user!, true)
+      toast.success(data.message || AUTH_MESSAGE.LOGIN.SUCCESS)
+      navigate('/dashboard')
     },
-    onError: (error: NormalizedError) => {
-      toast.error(error.message)
+    onError: (error: ApiErrorResponse) => {
+      const errMsg = extractFirstFieldError(error.errors)
+      toast.error(errMsg || error.message)
     },
   })
 }
 
 export const useLoginWithGoogle = () => {
   const mutation = useLoginWithGoogleServer()
+  const setIsLoggedWithGG = useAuthStore((s) => s.setIsLoggedWithGG)
 
   const handleSuccess = async (credentialResponse: any) => {
     const idToken = credentialResponse.credential
 
-    await mutation.mutateAsync({ idToken: idToken })
+    const data = await mutation.mutateAsync({ idToken: idToken })
+
+    if (!data.data?.user.targetScore) {
+      setIsLoggedWithGG(true)
+    }
   }
 
   return { handleSuccess, isPending: mutation.isPending, isSuccess: mutation.isSuccess }

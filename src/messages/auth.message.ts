@@ -1,14 +1,17 @@
 export const AUTH_MESSAGE = {
   LOGIN: {
-    SUCCESS: 'Login successfully',
-    FAILED: 'Login failed! Try again',
+    SUCCESS: 'Đăng nhập thành công',
+    FAILED: 'Đăng nhập thất bại. Vui lòng thử lại',
   },
   REGISTER: {
-    SUCCESS: 'Account is register successfully',
-    FAILED: 'Register failed! Try again',
+    SUCCESS: 'Đăng ký tài khoản thành công',
+    FAILED: 'Đăng ký tài khoản thất bại. Vui lòng thử lại',
+  },
+  LOGOUT: {
+    SUCCESS: 'Đăng xuất thành công',
   },
   FORGOT: {
-    TOO_MUCH_EMAIL: 'You have been sent too much email! Please wait 5 mins to continue',
-    CHANGE_PASS: 'Password is changed successfully',
+    TOO_MUCH_EMAIL: 'Bạn đã gửi quá nhiều email. Vui lòng gửi lại sau 5 phút nhóe',
+    CHANGE_PASS: 'Đổi password thành công. Vui lòng đăng nhập lại',
   },
 }

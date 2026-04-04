@@ -7,19 +7,20 @@ export const useInitAuth = () => {
   const logout = useAuthStore((s) => s.logout)
 
   return useQuery({
-    queryKey: ['auth', 'refresh'],
+    queryKey: ['auth', 'init'],
     queryFn: async () => {
-      try {
-        const res = await refreshService()
-        loginStore(res.data.accessToken, res.data.user, true)
-        return res.data
-      } catch (error) {
+      const response = await refreshService()
+      const data = response.data.data
+      if (data) {
+        loginStore(data.accessToken, data.user, true)
+      } else {
         logout()
-        throw error
       }
+      return data
     },
     retry: false,
-    staleTime: Infinity,
+    // staleTime: Infinity,
+    gcTime: Infinity,
     refetchOnWindowFocus: false,
   })
 }

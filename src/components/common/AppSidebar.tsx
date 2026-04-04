@@ -19,13 +19,10 @@ import {
   Headphones,
   BarChart2,
   User,
-  DoorOpen,
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { useThemeStore } from '@/stores/global/themeStore'
 import { generateLogo } from '@/utils/generateLogoByTheme'
-import { useLogout } from '@/hooks/auth/useLogout'
-import { Spinner } from '../ui/spinner'
 
 const NAV_SECTIONS = [
   {
@@ -56,11 +53,6 @@ const NAV_SECTIONS = [
 export function AppSidebar() {
   const user = useAuthStore((s) => s.user)
   const theme = useThemeStore((s) => s.theme)
-  const { mutate: logoutServer, isPending } = useLogout()
-
-  const handleLogout = () => {
-    logoutServer()
-  }
 
   return (
     <Sidebar collapsible="icon">
@@ -116,16 +108,6 @@ export function AppSidebar() {
                   </div>
                 </>
               </NavLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton disabled={isPending} asChild tooltip="Đăng xuất">
-              <div className="border text-red-600" onClick={() => handleLogout()}>
-                {isPending ? <Spinner /> : <DoorOpen />}
-                <div className="flex flex-col">
-                  <span className="text-xs font-medium">Đăng xuất</span>
-                </div>
-              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

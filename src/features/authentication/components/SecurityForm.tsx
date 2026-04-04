@@ -1,8 +1,17 @@
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group'
+import { Eye, EyeOffIcon } from 'lucide-react'
+import { useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 export default function SecurityForm({ control }: any) {
+  const [isPassword, setIsPassword] = useState(true)
+  const [isConfirm, setIsConfirm] = useState(true)
   return (
     <FieldGroup>
       <Controller
@@ -11,13 +20,26 @@ export default function SecurityForm({ control }: any) {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel htmlFor="form-rhf-demo-title">Mật khẩu</FieldLabel>
-            <Input
-              {...field}
-              id="form-rhf-demo-title"
-              aria-invalid={fieldState.invalid}
-              placeholder="Nhập mật khẩu"
-              autoComplete="off"
-            />
+            <InputGroup>
+              <InputGroupInput
+                {...field}
+                id="form-rhf-demo-title"
+                aria-invalid={fieldState.invalid}
+                placeholder="Nhập mật khẩu"
+                autoComplete="off"
+                type={isPassword ? 'password' : 'text'}
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  aria-label="password"
+                  title="password"
+                  size="icon-xs"
+                  onClick={() => setIsPassword((prev) => !prev)}
+                >
+                  {isPassword ? <EyeOffIcon /> : <Eye />}
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
@@ -28,13 +50,27 @@ export default function SecurityForm({ control }: any) {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel htmlFor="form-rhf-demo-title">Xác nhận mật khẩu</FieldLabel>
-            <Input
-              {...field}
-              id="form-rhf-demo-title"
-              aria-invalid={fieldState.invalid}
-              placeholder="Nhập lại mật khẩu mới"
-              autoComplete="off"
-            />
+            <InputGroup>
+              <InputGroupInput
+                {...field}
+                id="form-rhf-demo-title"
+                aria-invalid={fieldState.invalid}
+                placeholder="Nhập lại mật khẩu mới"
+                autoComplete="off"
+                type={isConfirm ? 'password' : 'text'}
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  aria-label="confirm"
+                  title="confirm"
+                  size="icon-xs"
+                  onClick={() => setIsConfirm((prev) => !prev)}
+                >
+                  {isConfirm ? <EyeOffIcon /> : <Eye />}
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}

@@ -1,7 +1,6 @@
 import { refreshService } from '@/services/auth.service'
 import { useAuthStore } from '@/stores/global/authStore'
 import type { ApiErrorResponse } from '@/types/system.types'
-import { normalizeError } from '@/utils/normalizeError'
 import axios, { AxiosError } from 'axios'
 
 type QueueItem = {
@@ -19,6 +18,7 @@ const api = axios.create({
 const refreshApi = axios.create({
   baseURL: import.meta.env.VITE_BASE_BACKEND,
   withCredentials: true,
+  timeout: 10000,
 })
 
 api.interceptors.request.use((config) => {
@@ -47,8 +47,8 @@ api.interceptors.response.use(
       isRefreshing = true
       try {
         const data = await refreshService()
-        useAuthStore.getState().setAccessToken(data.data.accessToken)
-        processQueue(null, data.data.accessToken)
+        useAuthStore.getState().setAccessToken(data.data.data?.accessToken!)
+        processQueue(null, data.data.data?.accessToken!)
         err.config._retry = true
         return api(err.config)
       } catch (error: any) {
@@ -59,7 +59,7 @@ api.interceptors.response.use(
       }
     }
 
-    return Promise.reject(normalizeError(err))
+    return Promise.reject(err)
   },
 )
 

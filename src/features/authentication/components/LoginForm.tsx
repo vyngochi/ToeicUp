@@ -7,7 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Checkbox } from '@/components/ui/checkbox'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getStorage, setStorage } from '@/utils/sessionHelper'
 import { loginSchema } from '../schemas/authSchema'
 import { TEMPORARY_MAIL_KEY } from '@/lib/env'
@@ -16,9 +16,19 @@ import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/utils'
 import { GoogleLogin } from '@react-oauth/google'
 import styled from 'styled-components'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group'
+import { Eye, EyeOffIcon } from 'lucide-react'
 
 export default function LoginForm() {
   const { mutate: login, isPending } = useLogin()
+  const [isPassword, setIsPassword] = useState(true)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [btnWidth, setBtnWidth] = useState(0)
   const { handleSuccess, isPending: loginGGPending } = useLoginWithGoogle()
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -48,6 +58,18 @@ export default function LoginForm() {
     login({ email: form.getValues().email, password: form.getValues().password })
   }
 
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new ResizeObserver(([entry]) => {
+      setBtnWidth(entry.contentRect.width)
+    })
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <Card className="w-full sm:max-w-md">
       <CardHeader>
@@ -73,6 +95,7 @@ export default function LoginForm() {
                     placeholder="Nhập email của bạn"
                     autoComplete="off"
                     className="text-xs"
+                    type="email"
                   />
                   {fieldState.invalid && (
                     <FieldError className="text-xs" errors={[fieldState.error]} />
@@ -88,14 +111,27 @@ export default function LoginForm() {
                   <FieldLabel className="text-xs" htmlFor="form-rhf-demo-title">
                     Mật khẩu
                   </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-rhf-demo-title"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Nhập mật khẩu của bạn"
-                    autoComplete="off"
-                    className="text-xs"
-                  />
+                  <InputGroup>
+                    <InputGroupInput
+                      {...field}
+                      id="form-rhf-demo-title"
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Nhập mật khẩu của bạn"
+                      autoComplete="off"
+                      className="text-xs"
+                      type={isPassword ? 'password' : 'text'}
+                    />
+                    <InputGroupAddon align="inline-end">
+                      <InputGroupButton
+                        aria-label="password"
+                        title="password"
+                        size="icon-xs"
+                        onClick={() => setIsPassword((prev) => !prev)}
+                      >
+                        {isPassword ? <EyeOffIcon /> : <Eye />}
+                      </InputGroupButton>
+                    </InputGroupAddon>
+                  </InputGroup>
                   {fieldState.invalid && (
                     <FieldError className="text-xs" errors={[fieldState.error]} />
                   )}
@@ -130,21 +166,23 @@ export default function LoginForm() {
             <div className="h-px flex-1 bg-gray-300" />
           </div>
 
-          <GGButtonStyle>
+          <GGButtonStyle ref={containerRef}>
             {loginGGPending ? (
               <Button>
                 <Spinner />
                 Đang đăng nhập ...
               </Button>
             ) : (
-              <GoogleLogin
-                onSuccess={handleSuccess}
-                onError={() => toast.error('Lỗi khi đăng nhập với Google')}
-                theme="outline"
-                text="signin_with"
-                shape="pill"
-                width={400}
-              />
+              btnWidth > 0 && (
+                <GoogleLogin
+                  onSuccess={handleSuccess}
+                  onError={() => toast.error('Lỗi khi đăng nhập với Google')}
+                  theme="outline"
+                  text="signin_with"
+                  shape="pill"
+                  width={btnWidth}
+                />
+              )
             )}
           </GGButtonStyle>
         </Field>
@@ -157,6 +195,7 @@ const GGButtonStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   span {
     font-family: 'Montserrat', sans-serif !important;
