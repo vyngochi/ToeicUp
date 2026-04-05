@@ -34,6 +34,7 @@ export const useLogin = () => {
 export const useLoginWithGoogleServer = () => {
   const navigate = useNavigate()
   const loginStore = useAuthStore((s) => s.login)
+  const setIsSettingGoal = useAuthStore((s) => s.setIsSettingGoal)
   return useMutation({
     mutationKey: ['LoginWithGoogle'],
     mutationFn: async (payload: LoginWithGooglePayload) => {
@@ -42,6 +43,7 @@ export const useLoginWithGoogleServer = () => {
     },
     onSuccess: (data) => {
       loginStore(data.data?.accessToken!, data.data?.user!, true)
+      setIsSettingGoal(data.data?.isSettingGoal!)
       toast.success(data.message || AUTH_MESSAGE.LOGIN.SUCCESS)
       navigate('/dashboard')
     },
@@ -54,16 +56,14 @@ export const useLoginWithGoogleServer = () => {
 
 export const useLoginWithGoogle = () => {
   const mutation = useLoginWithGoogleServer()
-  const setIsLoggedWithGG = useAuthStore((s) => s.setIsLoggedWithGG)
+  const setIsSettingGoal = useAuthStore((s) => s.setIsSettingGoal)
 
   const handleSuccess = async (credentialResponse: any) => {
     const idToken = credentialResponse.credential
 
     const data = await mutation.mutateAsync({ idToken: idToken })
 
-    if (!data.data?.user.targetScore) {
-      setIsLoggedWithGG(true)
-    }
+    setIsSettingGoal(data.data?.isSettingGoal!)
   }
 
   return { handleSuccess, isPending: mutation.isPending, isSuccess: mutation.isSuccess }

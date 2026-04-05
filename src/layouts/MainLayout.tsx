@@ -7,8 +7,8 @@ import { useAuthStore } from '@/stores/global/authStore'
 import { Outlet } from 'react-router-dom'
 
 export default function MainLayout() {
-  const isLoggedWithGG = useAuthStore((s) => s.isLoggedWithGG)
-  const setIsLoggedWithGG = useAuthStore((s) => s.setIsLoggedWithGG)
+  const isSettingGoal = useAuthStore((s) => s.isSettingGoal)
+  const setIsSettingGoal = useAuthStore((s) => s.setIsSettingGoal)
 
   return (
     <SidebarProvider>
@@ -19,7 +19,7 @@ export default function MainLayout() {
           <DropdownMenuAvatar />
         </header>
         <div className="flex-1 overflow-y-auto">
-          <TargetDialog isOpen={isLoggedWithGG} onOpenChange={setIsLoggedWithGG}>
+          <TargetDialog isOpen={isSettingGoal} onOpenChange={setIsSettingGoal}>
             <Outlet />
           </TargetDialog>
         </div>

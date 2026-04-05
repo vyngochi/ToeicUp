@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -39,17 +38,17 @@ export function TargetDialog({ children, isOpen, onOpenChange }: TargetDialogPro
   const onSetTarget = () => {
     setTarget(form.getValues(), {
       onSuccess: () => {
-        onOpenChange(false)
         queryClient.invalidateQueries({ queryKey: ['auth', 'refresh'] })
+        onOpenChange(true)
       },
     })
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={!isOpen} onOpenChange={onOpenChange}>
       {children}
       <form>
-        <DialogContent className="sm:max-w-sm">
+        <DialogContent className="sm:max-w-sm" showCloseButton={false}>
           <DialogHeader>
             <DialogTitle>Chào mừng bạn đến với TOEIC Up</DialogTitle>
             <DialogDescription>
@@ -58,9 +57,6 @@ export function TargetDialog({ children, isOpen, onOpenChange }: TargetDialogPro
           </DialogHeader>
           <GoalForm control={form.control} />
           <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Để sau</Button>
-            </DialogClose>
             <Button disabled={isPending} onClick={onSetTarget}>
               {isPending && <Spinner />}
               Save Changes
