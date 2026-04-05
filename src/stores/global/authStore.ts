@@ -5,21 +5,20 @@ interface AuthState {
   accessToken: string | null
   user: UserResponse | null
   isAuthenticated: boolean
-  isLoggedWithGG: boolean
+  isSettingGoal: boolean
   setAccessToken: (token: string) => void
   login: (token: string, user: UserResponse, isAuthenticated: boolean) => void
   logout: () => void
-  setIsLoggedWithGG: (v: boolean) => void
+  setIsSettingGoal: (v: boolean) => void
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   accessToken: null,
   user: null,
-  isLoggedWithGG: false,
+  isSettingGoal: false,
   isAuthenticated: false,
   setAccessToken: (token) => set({ accessToken: token }),
   login: (token, user) => set({ accessToken: token, user: user, isAuthenticated: true }),
-  logout: () =>
-    set({ accessToken: null, user: null, isAuthenticated: false, isLoggedWithGG: false }),
-  setIsLoggedWithGG: (v: boolean) => set({ isLoggedWithGG: v }),
+  logout: () => set({ accessToken: null, user: null, isAuthenticated: false }),
+  setIsSettingGoal: (v: boolean) => set({ isSettingGoal: v }),
 }))

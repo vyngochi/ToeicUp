@@ -12,6 +12,7 @@ export type LoginWithGooglePayload = {
 
 export type AuthResponse = {
   accessToken: string
+  isSettingGoal: boolean | null
   user: UserResponse
 }
 

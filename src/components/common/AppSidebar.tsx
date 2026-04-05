@@ -103,8 +103,8 @@ export function AppSidebar() {
                 <>
                   <User />
                   <div className="flex flex-col">
-                    <span className="text-xs font-medium">{user?.displayName ?? 'User'}</span>
-                    <span className="text-[10px] text-gray-400">{user?.email}</span>
+                    <span className="text-xs font-medium">{user?.DisplayName ?? 'User'}</span>
+                    <span className="text-[10px] text-gray-400">{user?.Email}</span>
                   </div>
                 </>
               </NavLink>

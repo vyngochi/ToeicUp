@@ -26,7 +26,7 @@ export function DropdownMenuAvatar() {
             <Spinner />
           ) : (
             <Avatar>
-              <AvatarImage src={user?.avatarUrl ?? 'https://github.com/shadcn.png'} />
+              <AvatarImage src={user?.AvatarUrl ?? 'https://github.com/shadcn.png'} />
               <AvatarFallback>TUP</AvatarFallback>
               <AvatarBadge className="bg-green-600 dark:bg-green-800" />
             </Avatar>
