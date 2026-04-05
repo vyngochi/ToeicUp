@@ -38,7 +38,7 @@ export default function VerifyEmail() {
           </h4>
         ) : token ? (
           <h4 className="scroll-m-20 text-center text-sm font-semibold tracking-tight md:text-xl">
-            Chào mừng bạn đến với TOEIC Up! 🎉 <br /> Nhấn xác thực để truy cập tài khoản
+            Chào mừng bạn đến với TOEIC! 🎉 <br /> Nhấn xác thực để truy cập tài khoản
           </h4>
         ) : (
           <h4 className="scroll-m-20 text-center text-sm font-semibold tracking-tight md:text-xl">

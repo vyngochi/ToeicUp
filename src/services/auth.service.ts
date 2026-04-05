@@ -43,5 +43,5 @@ export const resetPasswordService = (payload: ResetPasswordPayload) => {
 }
 
 export const setNewPassService = (payload: ResetPasswordPayload) => {
-  return api.post<CommonResponse<undefined>>('/api/auth/set-password', payload)
+  return api.post<CommonResponse<AuthResponse>>('/api/auth/set-password', payload)
 }

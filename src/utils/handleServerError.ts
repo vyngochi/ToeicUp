@@ -8,9 +8,9 @@ export const extractFirstFieldError = (errors?: Record<string, string[]>) => {
   return errors[firstKey][0]
 }
 
-export const handleServerError = (error: any) => {
+export const handleServerError = (error: any, customMsg?: string) => {
   const serverError = error.response?.data as ApiErrorResponse
 
   const errMsg = extractFirstFieldError(serverError?.errors)
-  toast.error(errMsg || serverError?.message || 'Lỗi kết nối server')
+  toast.error(errMsg || serverError?.message || customMsg || 'Lỗi kết nối server')
 }
