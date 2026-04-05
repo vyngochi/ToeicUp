@@ -14,4 +14,7 @@ export const AUTH_MESSAGE = {
     TOO_MUCH_EMAIL: 'Bạn đã gửi quá nhiều email. Vui lòng gửi lại sau 5 phút nhóe',
     CHANGE_PASS: 'Đổi password thành công. Vui lòng đăng nhập lại',
   },
+  SET_PASSWORD: {
+    SUCCESS: 'Mật khẩu được đổi thành công',
+  },
 }

@@ -24,29 +24,29 @@ export default function VerifyEmail() {
   const isRegister = getStorage(IS_VERIFIED) === 'true'
 
   return (
-    <Card className="w-full sm:max-w-md">
+    <Card className="w-[90%] sm:max-w-md">
       <CardHeader>
-        <h2 className="scroll-m-20 border-b pb-2 text-center text-3xl font-semibold tracking-tight first:mt-0">
+        <h2 className="scroll-m-20 border-b pb-2 text-center text-xl font-semibold tracking-tight first:mt-0 md:text-3xl">
           Xác thực tài khoản
         </h2>
       </CardHeader>
 
       <CardContent>
         {isRegister ? (
-          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+          <h4 className="scroll-m-20 text-center text-sm font-semibold tracking-tight md:text-xl">
             Vui lòng mở ứng dụng Mail để xác thực tài khoản
           </h4>
         ) : token ? (
-          <h4 className="scroll-m-20 text-center text-xl font-semibold tracking-tight">
-            Chào mừng! Nhấn xác thực để truy cập tài khoản
+          <h4 className="scroll-m-20 text-center text-sm font-semibold tracking-tight md:text-xl">
+            Chào mừng bạn đến với TOEIC! 🎉 <br /> Nhấn xác thực để truy cập tài khoản
           </h4>
         ) : (
-          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+          <h4 className="scroll-m-20 text-center text-sm font-semibold tracking-tight md:text-xl">
             Vui lòng điền form đăng ký tài khoản
           </h4>
         )}
       </CardContent>
-      <CardFooter className="flex w-full justify-between">
+      <CardFooter className="flex w-full items-center justify-between">
         {isRegister || token ? (
           <>
             <Button variant={'outline'} onClick={handleCreateNewAcc}>
@@ -64,7 +64,9 @@ export default function VerifyEmail() {
             )}
           </>
         ) : (
-          <Button onClick={() => navigate('/register')}>Trở lại đăng ký</Button>
+          <Button variant={'outline'} onClick={() => navigate('/register')}>
+            Trở lại đăng ký
+          </Button>
         )}
       </CardFooter>
     </Card>
