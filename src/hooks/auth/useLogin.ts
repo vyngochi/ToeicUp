@@ -3,8 +3,7 @@ import { AUTH_MESSAGE } from '@/messages/auth.message'
 import { loginGoogleService, loginService } from '@/services/auth.service'
 import { useAuthStore } from '@/stores/global/authStore'
 import type { LoginPayload, LoginWithGooglePayload } from '@/types/auth.types'
-import type { ApiErrorResponse } from '@/types/system.types'
-import { extractFirstFieldError, handleServerError } from '@/utils/handleServerError'
+import { handleServerError } from '@/utils/handleServerError'
 import { removeStorage } from '@/utils/sessionHelper'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +19,7 @@ export const useLogin = () => {
       return response.data
     },
     onSuccess: (data) => {
-      loginStore(data.data?.accessToken!, data.data?.user!, true)
+      loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
       toast.success(data.message || AUTH_MESSAGE.LOGIN.SUCCESS)
       removeStorage([TEMPORARY_MAIL_KEY])
       navigate('/dashboard')
@@ -34,7 +33,6 @@ export const useLogin = () => {
 export const useLoginWithGoogleServer = () => {
   const navigate = useNavigate()
   const loginStore = useAuthStore((s) => s.login)
-  const setIsSettingGoal = useAuthStore((s) => s.setIsSettingGoal)
   return useMutation({
     mutationKey: ['LoginWithGoogle'],
     mutationFn: async (payload: LoginWithGooglePayload) => {
@@ -42,28 +40,22 @@ export const useLoginWithGoogleServer = () => {
       return response.data
     },
     onSuccess: (data) => {
-      loginStore(data.data?.accessToken!, data.data?.user!, true)
-      setIsSettingGoal(data.data?.isSettingGoal!)
+      loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
       toast.success(data.message || AUTH_MESSAGE.LOGIN.SUCCESS)
       navigate('/dashboard')
     },
-    onError: (error: ApiErrorResponse) => {
-      const errMsg = extractFirstFieldError(error.errors)
-      toast.error(errMsg || error.message)
+    onError: (error: any) => {
+      handleServerError(error)
     },
   })
 }
 
 export const useLoginWithGoogle = () => {
   const mutation = useLoginWithGoogleServer()
-  const setIsSettingGoal = useAuthStore((s) => s.setIsSettingGoal)
 
   const handleSuccess = async (credentialResponse: any) => {
     const idToken = credentialResponse.credential
-
-    const data = await mutation.mutateAsync({ idToken: idToken })
-
-    setIsSettingGoal(data.data?.isSettingGoal!)
+    await mutation.mutateAsync({ idToken: idToken })
   }
 
   return { handleSuccess, isPending: mutation.isPending, isSuccess: mutation.isSuccess }

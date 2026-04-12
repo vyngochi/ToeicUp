@@ -46,10 +46,10 @@ export const useVerifyEmailRegister = () => {
     mutationKey: ['verify-email'],
     mutationFn: async (payload: VerifyEmailPayload) => {
       const response = await verifyRegisterEmail(payload)
-      return response.data.data
+      return response.data
     },
     onSuccess: (data) => {
-      loginStore(data?.accessToken!, data?.user!, true)
+      loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
       toast.success(AUTH_MESSAGE.REGISTER.SUCCESS)
       navigate('/dashboard')
     },

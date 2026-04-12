@@ -17,4 +17,7 @@ export const AUTH_MESSAGE = {
   SET_PASSWORD: {
     SUCCESS: 'Mật khẩu được đổi thành công',
   },
+  REFRESH: {
+    FAILED: 'Phiên đăng nhập hết hạn, vui lòng đăng nhập lại',
+  },
 }
