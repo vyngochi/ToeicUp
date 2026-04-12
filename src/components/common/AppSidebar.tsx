@@ -10,49 +10,16 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/global/authStore'
-import {
-  LayoutDashboard,
-  BookOpen,
-  Layers,
-  RefreshCw,
-  PenLine,
-  Headphones,
-  BarChart2,
-  User,
-} from 'lucide-react'
+import { User } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { useThemeStore } from '@/stores/global/themeStore'
 import { generateLogo } from '@/utils/generateLogoByTheme'
-
-const NAV_SECTIONS = [
-  {
-    label: 'Main',
-    items: [{ to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' }],
-  },
-  {
-    label: 'Vocabulary',
-    items: [
-      { to: '/vocabulary', icon: BookOpen, label: 'Từ vựng' },
-      { to: '/vocabulary/flashcard', icon: Layers, label: 'Flashcard' },
-      { to: '/vocabulary/review', icon: RefreshCw, label: 'Ôn tập SRS' },
-    ],
-  },
-  {
-    label: 'Exercise',
-    items: [
-      { to: '/exercise', icon: PenLine, label: 'Reading' },
-      { to: '/listening', icon: Headphones, label: 'Listening' },
-    ],
-  },
-  {
-    label: 'Analytics',
-    items: [{ to: '/statistics', icon: BarChart2, label: 'Thống kê' }],
-  },
-]
+import { GetSideBar } from '@/utils/sidebarHelper'
 
 export function AppSidebar() {
   const user = useAuthStore((s) => s.user)
   const theme = useThemeStore((s) => s.theme)
+  const NAV_SECTIONS = GetSideBar(user)
 
   return (
     <Sidebar collapsible="icon">
@@ -82,7 +49,7 @@ export function AppSidebar() {
                     <NavLink
                       to={item.to}
                       end
-                      className={({ isActive }) => (isActive ? 'font-medium text-blue-600' : '')}
+                      className={({ isActive }) => (isActive ? 'font-bold text-blue-600' : '')}
                     >
                       <item.icon />
                       <span>{item.label}</span>

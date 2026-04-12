@@ -18,7 +18,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   isSettingGoal: false,
   isAuthenticated: false,
   setAccessToken: (token) => set({ accessToken: token }),
-  login: (token, user) => set({ accessToken: token, user: user, isAuthenticated: true }),
+  login: (token, user, isSettingGoal) =>
+    set({ accessToken: token, user: user, isSettingGoal: isSettingGoal }),
   logout: () => set({ accessToken: null, user: null, isAuthenticated: false }),
   setIsSettingGoal: (v: boolean) => set({ isSettingGoal: v }),
 }))

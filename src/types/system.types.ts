@@ -6,7 +6,7 @@ declare module 'axios' {
 }
 
 export interface CommonResponse<T> {
-  statusCode: string
+  statusCode: number
   message: string
   data?: T
 }

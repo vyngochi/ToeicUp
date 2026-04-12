@@ -17,7 +17,7 @@ export const useSetNewPassword = () => {
       return response.data
     },
     onSuccess: (data) => {
-      loginStore(data.data?.accessToken!, data.data?.user!, true)
+      loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
       toast.success(data.message || AUTH_MESSAGE.SET_PASSWORD.SUCCESS)
       navigate('/dashboard')
     },
