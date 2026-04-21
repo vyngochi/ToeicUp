@@ -3,9 +3,12 @@ import {
   BarChart2,
   Bell,
   BookOpen,
+  CalendarCheck,
   ClipboardList,
   CreditCard,
   FileText,
+  GalleryHorizontalEnd,
+  Goal,
   Headphones,
   HelpCircle,
   Layers,
@@ -14,10 +17,13 @@ import {
   Receipt,
   RefreshCw,
   Settings,
+  Settings2,
   Shield,
   Users,
+  Wallet,
 } from 'lucide-react'
 
+//Menu học viên
 const LEARNER_SIDEBAR = [
   {
     label: 'Main',
@@ -44,6 +50,7 @@ const LEARNER_SIDEBAR = [
   },
 ]
 
+//Menu quản trị viên
 const ADMIN_SIDEBAR = [
   {
     label: 'Main',
@@ -98,6 +105,54 @@ const ADMIN_SIDEBAR = [
   },
 ]
 
+//Menu Profile học viên
+const LEARNER_PROFILE_SIDEBAR = [
+  {
+    label: 'Information',
+    items: [{ to: '/profile/information', icon: LayoutDashboard, label: 'Thông tin cá nhân' }],
+  },
+  {
+    label: 'Learning Goals',
+    items: [{ to: '/profile/goal', icon: Goal, label: 'Mục tiêu học tập' }],
+  },
+  {
+    label: 'Learning Progress',
+    items: [{ to: '/profile/progress', icon: CalendarCheck, label: 'Tiến trình học' }],
+  },
+  {
+    label: 'Test History',
+    items: [{ to: '/profile/history', icon: GalleryHorizontalEnd, label: 'Lịch sử làm bài' }],
+  },
+  {
+    label: 'Settings',
+    items: [{ to: '/profile/setting', icon: Settings2, label: 'Cài đặt' }],
+  },
+  {
+    label: 'Billing',
+    items: [{ to: '/profile/billing', icon: Wallet, label: 'Gói học' }],
+  },
+]
+
+//Menu profile admin
+const ADMIN_PROFILE_SIDEBAR = [
+  {
+    label: 'Information',
+    items: [{ to: '/profile/information', icon: LayoutDashboard, label: 'Thông tin cá nhân' }],
+  },
+  {
+    label: 'Security',
+    items: [{ to: '/profile/security', icon: Settings2, label: 'Bảo mật' }],
+  },
+  {
+    label: 'Settings',
+    items: [{ to: '/profile/setting', icon: Settings2, label: 'Cài đặt' }],
+  },
+]
+
 export const GetSideBar = (user: UserResponse | null) => {
   return user?.Role === 'User' ? LEARNER_SIDEBAR : ADMIN_SIDEBAR
+}
+
+export const GetProfileSidebar = (user: UserResponse | null) => {
+  return user?.Role === 'User' ? LEARNER_PROFILE_SIDEBAR : ADMIN_PROFILE_SIDEBAR
 }

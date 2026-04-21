@@ -13,9 +13,11 @@ import {
 import { useAuthStore } from '@/stores/global/authStore'
 import { useLogout } from '@/hooks/auth/useLogout'
 import { Spinner } from '../ui/spinner'
+import { useNavigate } from 'react-router-dom'
 
 export function DropdownMenuAvatar() {
   const user = useAuthStore((s) => s.user)
+  const navigate = useNavigate()
   const { mutate: logoutServer, isPending } = useLogout()
 
   return (
@@ -35,7 +37,7 @@ export function DropdownMenuAvatar() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate('/profile/information')}>
             <BadgeCheckIcon />
             Tài khoản
           </DropdownMenuItem>
