@@ -20,8 +20,9 @@ export type AuthResponse = {
 export type RegisterPayload = {
   email: string
   password: string
+  firstName: string
+  lastName: string
   confirmPassword: string
-  fullName: string
   targetScore: number
   wordsPerDay: number
 }

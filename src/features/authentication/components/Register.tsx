@@ -100,7 +100,6 @@ export default function Register() {
     register({
       ...form.getValues(),
       confirmPassword: form.getValues().confirm,
-      fullName: form.getValues().firstName + form.getValues().lastName,
     })
   }
 

@@ -40,8 +40,8 @@ const LEARNER_SIDEBAR = [
   {
     label: 'Exercise',
     items: [
-      { to: '/exercise', icon: PenLine, label: 'Reading' },
-      { to: '/listening', icon: Headphones, label: 'Listening' },
+      { to: '/exercise', icon: PenLine, label: 'Luyện đọc' },
+      { to: '/listening', icon: Headphones, label: 'Luyện nghe' },
     ],
   },
   {
