@@ -8,7 +8,6 @@ import {
   CreditCard,
   FileText,
   GalleryHorizontalEnd,
-  Goal,
   Headphones,
   HelpCircle,
   Layers,
@@ -112,8 +111,8 @@ const LEARNER_PROFILE_SIDEBAR = [
     items: [{ to: '/profile/information', icon: LayoutDashboard, label: 'Thông tin cá nhân' }],
   },
   {
-    label: 'Learning Goals',
-    items: [{ to: '/profile/goal', icon: Goal, label: 'Mục tiêu học tập' }],
+    label: 'Settings',
+    items: [{ to: '/profile/settings', icon: Settings2, label: 'Cài đặt chung' }],
   },
   {
     label: 'Learning Progress',
@@ -123,9 +122,10 @@ const LEARNER_PROFILE_SIDEBAR = [
     label: 'Test History',
     items: [{ to: '/profile/history', icon: GalleryHorizontalEnd, label: 'Lịch sử làm bài' }],
   },
+
   {
-    label: 'Settings',
-    items: [{ to: '/profile/setting', icon: Settings2, label: 'Cài đặt' }],
+    label: 'Security',
+    items: [{ to: '/profile/security', icon: Settings2, label: 'Bảo mật' }],
   },
   {
     label: 'Billing',

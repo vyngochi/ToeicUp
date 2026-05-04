@@ -53,3 +53,9 @@ export type ResetPasswordPayload = {
   newPassword: string
   confirmPassword: string
 }
+
+//Set password me
+export type SetPasswordMePayload = {
+  newPassword: string
+  confirmPassword: string
+}

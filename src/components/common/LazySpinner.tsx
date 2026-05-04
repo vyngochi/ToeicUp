@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 interface LazySpinnerProps {
-  name: string;
+  name: string
 }
-const DotEffect = () => {
-  const [dots, setDots] = useState("");
+export const DotEffect = () => {
+  const [dots, setDots] = useState('')
 
   useEffect(() => {
     const interval = setInterval(() => {
       setDots((prev) => {
-        if (prev.length >= 3) return "";
-        return prev + ".";
-      });
-    }, 500);
+        if (prev.length >= 3) return ''
+        return prev + '.'
+      })
+    }, 500)
 
-    return () => clearInterval(interval);
-  });
+    return () => clearInterval(interval)
+  })
 
-  return dots;
-};
-const LazySpinner = ({ name = "TOEIC Up" }: LazySpinnerProps) => {
+  return dots
+}
+const LazySpinner = ({ name = 'TOEIC Up' }: LazySpinnerProps) => {
   return (
     <StyledWrapper>
       <div className="loader" />
@@ -28,8 +28,8 @@ const LazySpinner = ({ name = "TOEIC Up" }: LazySpinnerProps) => {
         Loading {name} <DotEffect />
       </h3>
     </StyledWrapper>
-  );
-};
+  )
+}
 
 const StyledWrapper = styled.div`
   position: fixed;
@@ -49,7 +49,7 @@ const StyledWrapper = styled.div`
   }
 
   .loader:before {
-    content: "";
+    content: '';
     width: 48px;
     height: 5px;
     background: #999;
@@ -61,7 +61,7 @@ const StyledWrapper = styled.div`
   }
 
   .loader:after {
-    content: "";
+    content: '';
     width: 100%;
     height: 100%;
     background: rgb(224, 162, 37);
@@ -105,6 +105,6 @@ const StyledWrapper = styled.div`
       transform: scale(1.2, 1);
     }
   }
-`;
+`
 
-export default LazySpinner;
+export default LazySpinner

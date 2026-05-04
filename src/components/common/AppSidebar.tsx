@@ -25,7 +25,7 @@ export function AppSidebar() {
   const isActive = (path: string) => (location.pathname.includes(path) ? true : false)
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar className="z-1001" collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -56,7 +56,7 @@ export function AppSidebar() {
                     <NavLink
                       to={item.to}
                       end
-                      className={cn(isActive(item.to) ? 'font-bold text-blue-600' : '')}
+                      className={cn(isActive(item.to) ? 'font-bold text-orange-600' : '')}
                     >
                       <item.icon />
                       <span>{item.label}</span>

@@ -27,7 +27,7 @@ export function ProfileSidebar() {
   const isActive = (path: string) => (location.pathname.includes(path) ? true : false)
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="z-1001">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

@@ -7,6 +7,7 @@ import type {
   RegisterPayload,
   VerifyEmailPayload,
   AuthResponse,
+  SetPasswordMePayload,
 } from '@/types/auth.types'
 import type { CommonResponse } from '@/types/system.types'
 
@@ -44,4 +45,8 @@ export const resetPasswordService = (payload: ResetPasswordPayload) => {
 
 export const setNewPassService = (payload: ResetPasswordPayload) => {
   return api.post<CommonResponse<AuthResponse>>('/api/auth/set-password', payload)
+}
+
+export const setPasswordMe = (payload: SetPasswordMePayload) => {
+  return api.put<CommonResponse<undefined>>('/api/auth/set-password/me', payload)
 }
