@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
-@import '@fontsource/plus-jakarta-sans';
 
 @theme {
   /* ── Brand: Navy ── */
