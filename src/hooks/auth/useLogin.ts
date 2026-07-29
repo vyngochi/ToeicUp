@@ -19,6 +19,7 @@ export const useLogin = () => {
       return response.data
     },
     onSuccess: (data) => {
+      localStorage.setItem('isLoggedIn', 'true')
       loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
       toast.success(data.message || AUTH_MESSAGE.LOGIN.SUCCESS)
       removeStorage([TEMPORARY_MAIL_KEY])
@@ -40,6 +41,7 @@ export const useLoginWithGoogleServer = () => {
       return response.data
     },
     onSuccess: (data) => {
+      localStorage.setItem('isLoggedIn', 'true')
       loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
       toast.success(data.message || AUTH_MESSAGE.LOGIN.SUCCESS)
       navigate('/dashboard')

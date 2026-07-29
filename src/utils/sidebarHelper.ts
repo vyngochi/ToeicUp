@@ -59,47 +59,47 @@ const ADMIN_SIDEBAR = [
   {
     label: 'Users',
     items: [
-      { to: '/admin/users', icon: Users, label: 'All Users' },
-      { to: '/admin/roles', icon: Shield, label: 'Roles & Permissions' },
+      { to: '/admin/users', icon: Users, label: 'Danh sách người dùng' },
+      { to: '/admin/roles', icon: Shield, label: 'Vai trò và phân quyền' },
     ],
   },
 
   {
     label: 'Content',
     items: [
-      { to: '/admin/vocabulary', icon: BookOpen, label: 'Vocabulary' },
-      { to: '/admin/grammar', icon: FileText, label: 'Grammar' },
-      { to: '/admin/listening', icon: Headphones, label: 'Listening' },
-      { to: '/admin/reading', icon: PenLine, label: 'Reading' },
+      { to: '/admin/word-set', icon: BookOpen, label: 'Quản lý từ vựng' },
+      { to: '/admin/grammar', icon: FileText, label: 'Quản lý ngữ pháp' },
+      { to: '/admin/listening', icon: Headphones, label: 'Quản lý bài nghe' },
+      { to: '/admin/reading', icon: PenLine, label: 'Quản lý bài đọc' },
     ],
   },
 
   {
     label: 'Tests',
     items: [
-      { to: '/admin/tests', icon: ClipboardList, label: 'Test Sets' },
-      { to: '/admin/questions', icon: HelpCircle, label: 'Question Bank' },
+      { to: '/admin/tests', icon: ClipboardList, label: 'Bộ đề thi' },
+      { to: '/admin/questions', icon: HelpCircle, label: 'Ngân hàng câu hỏi' },
     ],
   },
 
   {
     label: 'Analytics',
-    items: [{ to: '/admin/analytics', icon: BarChart2, label: 'Reports' }],
+    items: [{ to: '/admin/analytics', icon: BarChart2, label: 'Báo cáo' }],
   },
 
   {
     label: 'Billing',
     items: [
       { to: '/admin/plans', icon: CreditCard, label: 'Plans' },
-      { to: '/admin/payments', icon: Receipt, label: 'Payments' },
+      { to: '/admin/payments', icon: Receipt, label: 'Phương thức thanh toán' },
     ],
   },
 
   {
     label: 'System',
     items: [
-      { to: '/admin/notifications', icon: Bell, label: 'Notifications' },
-      { to: '/admin/settings', icon: Settings, label: 'Settings' },
+      { to: '/admin/notifications', icon: Bell, label: 'Thông báo' },
+      { to: '/admin/settings', icon: Settings, label: 'Cài đặt chung' },
     ],
   },
 ]

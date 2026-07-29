@@ -7,7 +7,7 @@ interface AuthState {
   isAuthenticated: boolean
   isSettingGoal: boolean
   setAccessToken: (token: string) => void
-  login: (token: string, user: UserResponse, isAuthenticated: boolean) => void
+  login: (token: string, user: UserResponse, isSettingGoal: boolean) => void
   logout: () => void
   setIsSettingGoal: (v: boolean) => void
 }
@@ -19,7 +19,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
   setAccessToken: (token) => set({ accessToken: token }),
   login: (token, user, isSettingGoal) =>
-    set({ accessToken: token, user: user, isSettingGoal: isSettingGoal }),
-  logout: () => set({ accessToken: null, user: null, isAuthenticated: false }),
+    set({ accessToken: token, user: user, isSettingGoal: isSettingGoal, isAuthenticated: true }),
+  logout: () => set({ accessToken: null, user: null, isAuthenticated: false, isSettingGoal: false }),
   setIsSettingGoal: (v: boolean) => set({ isSettingGoal: v }),
 }))

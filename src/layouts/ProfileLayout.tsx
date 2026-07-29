@@ -8,15 +8,16 @@ export default function ProfileLayout() {
   return (
     <SidebarProvider>
       <ProfileSidebar />
-      <main className="flex flex-1 flex-col">
-        <header className="bg-sidebar fixed right-0 left-0 z-1000 flex h-13 items-center justify-between border-b border-gray-200 px-4">
+      <main className="relative flex flex-1 flex-col">
+        <header className="bg-sidebar sticky top-0 z-10 flex h-13 w-full items-center justify-between border-b border-gray-200 px-4">
           <SidebarTrigger />
           <div className="flex gap-5">
             <ThemeToggle />
             <DropdownMenuAvatar />
           </div>
         </header>
-        <div className="flex-1 justify-center overflow-y-auto">
+
+        <div className="flex-1 overflow-y-auto p-4">
           <Outlet />
         </div>
       </main>

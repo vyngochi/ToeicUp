@@ -16,3 +16,11 @@ export interface ApiErrorResponse {
   message: string
   errors?: Record<string, string[]>
 }
+
+export interface PaginatedResponse<T> {
+  total: number
+  page: number
+  limit: number
+  totalPages: number
+  vocabs?: T
+}

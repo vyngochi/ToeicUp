@@ -49,6 +49,7 @@ export const useVerifyEmailRegister = () => {
       return response.data
     },
     onSuccess: (data) => {
+      localStorage.setItem('isLoggedIn', 'true')
       loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
       toast.success(AUTH_MESSAGE.REGISTER.SUCCESS)
       navigate('/dashboard')

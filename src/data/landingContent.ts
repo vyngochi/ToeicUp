@@ -17,7 +17,7 @@ export const defaultHeroContent: HeroContent = {
   badge: 'Tích hợp AI',
   heading: 'Chinh phục TOEIC với',
   headingHighlight1: 'AI thông minh',
-  headingHighlight2: 'SRS',
+  headingHighlight2: 'Spaced Repetition',
   subtext:
     'Học từ vựng hiệu quả, luyện đề Reading & Listening với AI và nhận giải thích tiếng Việt chi tiết.',
   ctaPrimary: 'Bắt đầu miễn phí',

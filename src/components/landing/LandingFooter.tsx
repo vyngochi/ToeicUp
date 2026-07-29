@@ -21,29 +21,36 @@ const PolicyMenu: FooterMenu = {
 export default function LandingFooter() {
   const { theme } = useThemeStore()
   return (
-    <div className="mt-5 flex justify-center">
-      <div className="max-w-[70%] flex-col md:max-w-[80%]">
-        <div className="grid-row-[2fr_1fr_1fr] mb-10 grid gap-3 md:grid-cols-[2fr_1fr_1fr] md:gap-4">
-          <div className="lg:w-[60%]">
-            <img src={generateLogo(theme)} alt="logo-footer" className="mb-2 w-14 md:w-20" />
-            <div className="text-justify text-[12px] text-gray-700 md:text-sm">
+    <div className="mt-10 flex justify-center bg-gray-50/50 py-12">
+      <div className="w-full max-w-6xl px-6 md:px-12">
+        <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-6 lg:col-span-5">
+            <img src={generateLogo(theme)} alt="logo-footer" className="mb-6 w-20 md:w-24" />
+            <div className="text-sm leading-relaxed text-gray-600 max-w-sm">
               Nền tảng học từ vựng và luyện thi TOEIC thông minh với AI. Giúp bạn đạt điểm mục tiêu
               nhanh hơn.
             </div>
           </div>
-          <FooterMenu menu={WebsiteMenu} />
-          <FooterMenu menu={PolicyMenu} />
+          <div className="md:col-span-3 lg:col-span-3">
+            <FooterMenu menu={WebsiteMenu} />
+          </div>
+          <div className="md:col-span-3 lg:col-span-4">
+            <FooterMenu menu={PolicyMenu} />
+          </div>
         </div>
 
-        <Separator />
-        <div className="flex items-center justify-center gap-1 p-2">
-          <Copyright className="h-3 w-3 text-gray-400" />
+        <Separator className="bg-gray-200" />
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+            <Copyright className="h-4 w-4" />
+            <span>2026 TOEICUp. All rights reserved.</span>
+          </div>
           <a
             href="https://www.google.com/"
             target="_blank"
-            className="text-[10px] text-gray-400 md:text-[12px]"
+            className="text-xs text-gray-400 hover:text-gray-900 transition-colors"
           >
-            2026 TOEICUp. Made by vyngochi & vangiuphan
+            Made by vyngochi & vangiuphan
           </a>
         </div>
       </div>
@@ -53,12 +60,12 @@ export default function LandingFooter() {
 
 const FooterMenu = ({ menu }: { menu: FooterMenu }) => {
   return (
-    <div className="">
-      <h6>{menu.title}</h6>
-      <div className="flex flex-col md:mt-5 md:gap-3">
+    <div>
+      <h6 className="mb-4 font-semibold text-gray-900">{menu.title}</h6>
+      <div className="flex flex-col gap-3">
         {menu.content.map((item, idx) => (
           <span
-            className="cursor-pointer text-[12px] text-gray-600 hover:text-amber-400 md:text-sm"
+            className="cursor-pointer text-sm text-gray-500 transition-colors hover:text-blue-600"
             key={idx}
           >
             {item}

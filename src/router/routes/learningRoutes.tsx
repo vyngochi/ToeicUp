@@ -1,9 +1,15 @@
 // import { lazy } from 'react'
-import type { RouteObject } from 'react-router-dom'
+import { Navigate, type RouteObject } from 'react-router-dom'
 // import { SuspenseWrapper } from '../guards/LazyLoading'
 import MainLayout from '@/layouts/MainLayout'
 import { ProtectedRoute } from '../guards/ProtectedRoute'
-import WordSetPage from '@/pages/learning/word-sets.page'
+import { lazy } from 'react'
+import VocabularyPage from '@/pages/learning/vocabulary'
+
+const WordSetPage = lazy(() => import('../../pages/learning/vocabulary/word-sets.page'))
+const WordTablePage = lazy(() => import('../../pages/learning/vocabulary/word-table.page'))
+const SrsReviewPage = lazy(() => import('../../pages/learning/vocabulary/srs-review.page'))
+const FlashcardDashboardPage = lazy(() => import('../../pages/learning/vocabulary/flashcard-dashboard.page'))
 
 export const learningRoutes: RouteObject[] = [
   {
@@ -14,7 +20,24 @@ export const learningRoutes: RouteObject[] = [
     ),
     children: [
       { path: 'dashboard', element: <div>heheheheh</div> },
-      { path: 'vocabulary', element: <WordSetPage /> },
+      {
+        path: 'vocabulary',
+        element: <VocabularyPage />,
+        children: [
+          { index: true, element: <Navigate to="word-sets" replace /> },
+          { path: 'word-sets', element: <WordSetPage /> },
+          { path: 'word-set/:name/:wordSetId', element: <WordTablePage /> },
+          { path: 'flashcard', element: <FlashcardDashboardPage /> },
+        ],
+      },
     ],
+  },
+  {
+    path: 'learning/srs-review',
+    element: (
+      <ProtectedRoute redirectTo="/login">
+        <SrsReviewPage />
+      </ProtectedRoute>
+    ),
   },
 ]

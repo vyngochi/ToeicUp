@@ -54,6 +54,7 @@ api.interceptors.response.use(
       } catch (error: any) {
         processQueue(error.message ?? error.errors, null)
         useAuthStore.getState().logout()
+        localStorage.removeItem('isLoggedIn')
       } finally {
         isRefreshing = false
       }

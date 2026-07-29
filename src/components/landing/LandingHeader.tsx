@@ -36,8 +36,8 @@ export default function LandingHeader() {
       className={cn(
         'fixed top-0 right-0 left-0 z-50 transition-all duration-300',
         scrolled
-          ? 'border-b border-(--color-gray-50)/5 bg-white/5 shadow-xl backdrop-blur-xl'
-          : 'border-b border-transparent bg-transparent',
+          ? 'glass dark:glass-dark border-b-0'
+          : 'bg-transparent border-transparent',
       )}
     >
       <img key={theme} className="h-auto w-15 md:h-auto md:w-20" src={generateLogo(theme)} />

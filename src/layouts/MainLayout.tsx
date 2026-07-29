@@ -15,7 +15,7 @@ export default function MainLayout() {
     <SidebarProvider>
       <AppSidebar />
       <main className="flex flex-1 flex-col">
-        <header className="bg-sidebar fixed right-0 left-0 z-1000 flex h-13 items-center justify-between border-b border-gray-200 px-4">
+        <header className="bg-sidebar sticky top-0 z-10 flex h-13 w-full items-center justify-between border-b border-gray-200 px-4">
           <SidebarTrigger />
           <div className="flex gap-5">
             <ThemeToggle />

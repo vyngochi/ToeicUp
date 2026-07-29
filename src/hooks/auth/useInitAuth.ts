@@ -8,7 +8,9 @@ export const useInitAuth = () => {
   const loginStore = useAuthStore((s) => s.login)
   const logout = useAuthStore((s) => s.logout)
 
-  return useQuery({
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+
+  const query = useQuery({
     queryKey: ['auth', 'init'],
     queryFn: async () => {
       try {
@@ -16,17 +18,25 @@ export const useInitAuth = () => {
         const data = response.data
 
         loginStore(data.data?.accessToken!, data.data?.user!, data.data?.isSettingGoal!)
+        return data
       } catch (error: any) {
         if (error?.response?.data?.statusCode !== 400) {
           toast.error(error?.response?.data?.message || AUTH_MESSAGE.REFRESH.FAILED)
         }
 
         logout()
+        localStorage.removeItem('isLoggedIn')
 
         throw error
       }
     },
+    enabled: isLoggedIn,
     retry: false,
     refetchOnWindowFocus: false,
   })
+
+  return {
+    ...query,
+    isPending: isLoggedIn ? query.isPending : false,
+  }
 }

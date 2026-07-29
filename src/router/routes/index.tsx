@@ -5,6 +5,7 @@ import { authRoutes } from './authRoutes'
 import { SuspenseWrapper } from '../guards/LazyLoading'
 import { learningRoutes } from './learningRoutes'
 import { profileRoutes } from './profileRoutes'
+import { adminRoutes } from './adminRoutes'
 
 //Lazy Loading
 const LandingPage = lazy(() => import('@/pages/LandingPage'))
@@ -26,4 +27,5 @@ export const router = createBrowserRouter([
   ...authRoutes,
   ...learningRoutes,
   ...profileRoutes,
+  ...adminRoutes,
 ])

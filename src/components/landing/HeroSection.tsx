@@ -8,8 +8,11 @@ export default function HeroSection() {
   const navigate = useNavigate()
 
   return (
-    <section className="relative overflow-hidden pt-25">
-      <div className="absolute bottom-0 left-0 -z-10 h-96 w-96 rounded-full bg-blue-100 opacity-20 mix-blend-multiply blur-3xl filter" />
+    <section className="relative overflow-hidden pt-25 pb-20">
+      {/* Vibrant Abstract Background */}
+      <div className="absolute top-10 left-10 -z-10 h-96 w-96 rounded-full bg-blue-300 opacity-30 mix-blend-multiply blur-3xl filter animate-pulse duration-10000" />
+      <div className="absolute top-40 right-10 -z-10 h-80 w-80 rounded-full bg-amber-200 opacity-30 mix-blend-multiply blur-3xl filter animate-pulse duration-10000 delay-1000" />
+      <div className="absolute bottom-0 left-1/3 -z-10 h-96 w-96 rounded-full bg-purple-300 opacity-30 mix-blend-multiply blur-3xl filter animate-pulse duration-10000 delay-2000" />
 
       <div className="mx-5 md:mx-20 md:mt-5 lg:mx-40">
         <div className="mb-6 flex justify-center md:mb-8">
@@ -49,7 +52,7 @@ export default function HeroSection() {
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8 lg:gap-10">
             {c.stats.map((item, _) => (
               <div key={item.label} className="group relative">
-                <div className="absolute inset-0 rounded-2xl border border-(--color-gray-200) bg-linear-to-br from-white to-(--color-gray-50) transition-all duration-300 group-hover:border-blue-200 group-hover:shadow-lg" />
+                <div className="absolute inset-0 rounded-2xl glass transition-all duration-300 group-hover:border-blue-300 group-hover:shadow-2xl" />
 
                 <div className="relative flex flex-col items-start p-5 md:p-6 lg:p-8">
                   {item.isBorder && (
@@ -72,10 +75,9 @@ export default function HeroSection() {
         </div>
 
         <div className="mt-16 md:mt-20 lg:mt-28">
-          <div className="group relative">
-            <div className="absolute inset-0 -z-10 rounded-3xl bg-linear-to-r from-(--color-blue-600)/20 to-(--color-blue-800)/20 blur-2xl transition-all duration-300 group-hover:blur-3xl" />
+          <div className="group relative mx-auto max-w-5xl glass-panel p-4 md:p-6 rounded-[2.5rem]">
             <img
-              className="group-hover:shadow-3xl w-full rounded-3xl border border-(--color-gray-100) shadow-2xl transition-shadow duration-300"
+              className="w-full rounded-3xl shadow-xl transition-transform duration-500 group-hover:scale-[1.01]"
               src={DemoImage}
               alt="Demo VocabToeic dashboard"
             />

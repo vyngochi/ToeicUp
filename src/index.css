@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
-@import '@fontsource-variable/geist';
+@import '@fontsource/plus-jakarta-sans';
 
 @theme {
   /* ── Brand: Navy ── */
@@ -102,7 +102,7 @@
   --radius: 0.625rem;
 
   /* Font Family */
-  --font-family: 'Montserrat', sans-serif;
+  --font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 @layer base {
@@ -141,7 +141,18 @@
   html,
   body {
     scroll-behavior: smooth;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* ── Glassmorphism Utilities ── */
+  .glass {
+    @apply border border-white/40 bg-white/70 shadow-xl backdrop-blur-md;
+  }
+  .glass-dark {
+    @apply border border-white/10 bg-black/60 shadow-xl backdrop-blur-md;
+  }
+  .glass-panel {
+    @apply border border-white/50 bg-white/60 shadow-2xl backdrop-blur-xl;
   }
 }
 
@@ -235,5 +246,20 @@
     --color-sidebar-accent-foreground: #a5cbf9;
     --color-sidebar-border: #374151;
     --color-sidebar-ring: #5da3f0;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
   }
 }

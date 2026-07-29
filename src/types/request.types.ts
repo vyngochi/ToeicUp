@@ -3,3 +3,7 @@ export interface CommonRequest {
   pageSize?: number
   pageIndex?: number
 }
+
+export interface GetListVocabRequest extends CommonRequest {
+  wordSetId: string
+}

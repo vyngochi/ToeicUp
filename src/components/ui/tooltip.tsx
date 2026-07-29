@@ -50,11 +50,17 @@ function TooltipContent({
   )
 }
 
-function TooltipCommon({ children, text }: { children: React.ReactNode; text: string }) {
+interface TooltipCommonProps {
+  children: React.ReactNode
+  text: string
+  side?: 'right' | 'top' | 'bottom' | 'left' | undefined
+}
+
+function TooltipCommon({ children, text, side = 'right' }: TooltipCommonProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>{children}</TooltipTrigger>
-      <TooltipContent side="right">
+      <TooltipContent side={side}>
         <p>{text}</p>
       </TooltipContent>
     </Tooltip>

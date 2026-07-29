@@ -44,17 +44,21 @@ const featureArr: FeatureCardTypes[] = [
 ]
 export default function FeatureSection() {
   return (
-    <div id="feature" className="flex items-center justify-center pt-15 xl:h-screen">
-      <div className="w-[70%] text-center md:w-[80%]">
-        <div className="mb-2 font-medium text-(--color-blue-600) md:text-xl">TÍNH NĂNG</div>
-        <div className="text-xl font-medium md:text-3xl lg:text-4xl">
+    <div id="feature" className="relative flex items-center justify-center py-24 xl:min-h-screen">
+      {/* Background blobs for Glassmorphism */}
+      <div className="absolute top-1/4 -left-20 -z-10 h-72 w-72 rounded-full bg-blue-200 opacity-20 mix-blend-multiply blur-3xl filter" />
+      <div className="absolute bottom-1/4 right-0 -z-10 h-96 w-96 rounded-full bg-amber-100 opacity-30 mix-blend-multiply blur-3xl filter" />
+
+      <div className="w-[85%] max-w-7xl text-center">
+        <div className="mb-3 font-semibold tracking-wider text-(--color-blue-600) uppercase text-sm md:text-base">TÍNH NĂNG</div>
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl text-gray-900">
           Chinh phục TOEIC dễ dàng hơn
-        </div>
-        <div className="mb-5 flex items-center justify-center">
-          <div className="md:mx-2xl mx-auto mt-1 max-w-2xl text-center text-sm leading-relaxed text-(--color-gray-600) md:text-lg lg:mx-20">
+        </h2>
+        <div className="mb-12 mt-6 flex items-center justify-center">
+          <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-gray-600 md:text-lg">
             Học từ vựng thông minh, luyện đề sát đề thi và nhận giải thích bằng AI — tất cả trong
             một nền tảng
-          </div>
+          </p>
         </div>
         <div className="hidden gap-5 sm:grid md:grid-cols-2 lg:grid-cols-3">
           {featureArr.map((item) => (

@@ -20,8 +20,16 @@ export type WordSet = {
   id: string
   description: string | null
   total_words: number
+  thumbnail?: string | null
 }
 
 export interface ListWordSetsResponse extends CommonGetListResponse {
   topics: Topics<WordSet>[]
+}
+
+export interface SrsStatsResponse {
+  dueToday: number
+  accuracy: number
+  totalLearned: number
+  streak: number
 }

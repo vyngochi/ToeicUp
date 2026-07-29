@@ -18,6 +18,7 @@ export const useLogout = () => {
     },
     onSuccess: (data) => {
       logout()
+      localStorage.removeItem('isLoggedIn')
       queryClient.clear()
       toast.success(data.message || AUTH_MESSAGE.LOGOUT.SUCCESS)
       navigate('/login')
