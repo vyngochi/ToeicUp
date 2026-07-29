@@ -5,12 +5,16 @@ import { columns } from '../configs/vocab.columns'
 
 export default function VocabTableDataAdmin() {
   const { wordSetId } = useParams()
-  const { data: vocabs, isFetching } = useGetListVocabByWordSetId({
+  const { data: paginatedData, isFetching } = useGetListVocabByWordSetId({
     wordSetId: wordSetId as string,
   })
   return (
     <div>
-      <VocabTableAdmin isFetching={isFetching} data={vocabs!} columns={columns} />
+      <VocabTableAdmin
+        isFetching={isFetching}
+        data={paginatedData?.vocabs || []}
+        columns={columns}
+      />
     </div>
   )
 }
