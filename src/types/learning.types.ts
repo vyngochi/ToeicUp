@@ -20,6 +20,7 @@ export type WordSet = {
   id: string
   description: string | null
   total_words: number
+  learned_words?: number
   thumbnail?: string | null
 }
 
@@ -27,9 +28,21 @@ export interface ListWordSetsResponse extends CommonGetListResponse {
   topics: Topics<WordSet>[]
 }
 
+export interface DashboardWordSetsResponse {
+  dueTodayTopics: Topics<WordSet>[]
+  recentlyLearnedTopics: Topics<WordSet>[]
+}
+
+export interface ChartData {
+  name: string
+  learned: number
+}
+
 export interface SrsStatsResponse {
   dueToday: number
   accuracy: number
   totalLearned: number
   streak: number
+  monthlyData: ChartData[]
+  yearlyData: ChartData[]
 }

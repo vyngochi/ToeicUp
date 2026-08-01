@@ -1,5 +1,5 @@
 import { api } from '@/configs/axios'
-import type { ListWordSetsResponse } from '@/types/learning.types'
+import type { ListWordSetsResponse, DashboardWordSetsResponse } from '@/types/learning.types'
 import type { CommonRequest, GetListVocabRequest } from '@/types/request.types'
 import type { Vocab, VocabDef } from '@/types/response/list-vocab.types'
 import type { CommonResponse, PaginatedResponse } from '@/types/system.types'
@@ -8,6 +8,10 @@ export const getListWordSetsWithTopics = (payload: CommonRequest) => {
   return api.get<CommonResponse<ListWordSetsResponse>>('/api/learning/word-sets', {
     params: payload,
   })
+}
+
+export const getDashboardWordSets = () => {
+  return api.get<CommonResponse<DashboardWordSetsResponse>>('/api/learning/dashboard/word-sets')
 }
 
 export const getListVocabularyByWordSetId = (payload: GetListVocabRequest) => {

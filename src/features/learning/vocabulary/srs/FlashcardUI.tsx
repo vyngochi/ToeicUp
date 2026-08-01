@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Volume2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -26,6 +26,13 @@ interface FlashcardUIProps {
 
 export default function FlashcardUI({ word, onRate }: FlashcardUIProps) {
   const [isFlipped, setIsFlipped] = useState(false)
+  const [hasFlippedOnce, setHasFlippedOnce] = useState(false)
+
+  // Reset states when the word changes
+  useEffect(() => {
+    setIsFlipped(false)
+    setHasFlippedOnce(false)
+  }, [word.Id])
 
   const definition = word.word_definitions?.[0]
 
@@ -44,10 +51,16 @@ export default function FlashcardUI({ word, onRate }: FlashcardUIProps) {
 
   const handleRate = (quality: number) => {
     setIsFlipped(false)
+    setHasFlippedOnce(false)
     // Small delay to allow flip animation to reset smoothly before word change
     setTimeout(() => {
       onRate(quality)
     }, 150)
+  }
+
+  const handleFlipCard = () => {
+    setIsFlipped(!isFlipped)
+    setHasFlippedOnce(true)
   }
 
   return (
@@ -58,14 +71,14 @@ export default function FlashcardUI({ word, onRate }: FlashcardUIProps) {
           'preserve-3d relative h-[400px] w-full cursor-pointer transition-transform duration-700',
           isFlipped ? 'rotate-y-180' : '',
         )}
-        onClick={() => !isFlipped && setIsFlipped(true)}
+        onClick={handleFlipCard}
       >
         {/* Front of Card */}
         <div className="glass-panel absolute inset-0 flex h-full w-full flex-col items-center justify-center rounded-3xl border border-white/20 p-6 shadow-2xl transition-colors backface-hidden hover:border-blue-300/50 md:p-8">
           <span className="mb-4 text-sm font-medium tracking-widest text-blue-500/80 uppercase">
             Nhấn để lật thẻ
           </span>
-          <h2 className="mb-4 max-w-full px-2 text-center text-5xl font-bold break-words text-gray-800 drop-shadow-sm md:text-7xl dark:text-white">
+          <h2 className="mb-4 max-w-full px-2 text-center text-5xl font-bold break-words text-gray-800 drop-shadow-sm md:text-7xl ">
             {word.Term}
           </h2>
           <Button
@@ -79,14 +92,14 @@ export default function FlashcardUI({ word, onRate }: FlashcardUIProps) {
         </div>
 
         {/* Back of Card */}
-        <div className="glass-panel custom-scrollbar absolute inset-0 flex h-full w-full rotate-y-180 flex-col items-center justify-center overflow-y-auto rounded-3xl border border-white/20 bg-white/60 p-6 shadow-2xl backface-hidden md:p-8 dark:bg-black/60">
+        <div className="glass-panel custom-scrollbar absolute inset-0 flex h-full w-full rotate-y-180 flex-col items-center justify-center overflow-y-auto rounded-3xl border border-white/20 bg-white/60 p-6 shadow-2xl backface-hidden md:p-8 ">
           <div className="flex w-full flex-col items-center space-y-4 text-center">
             <div>
-              <h2 className="mb-2 text-4xl font-bold text-gray-800 dark:text-white">{word.Term}</h2>
+              <h2 className="mb-2 text-4xl font-bold text-gray-800 ">{word.Term}</h2>
               <div className="flex items-center justify-center gap-3 text-gray-500">
                 {word.Phonetic && <span className="font-mono text-lg">/{word.Phonetic}/</span>}
                 {definition?.PartOfSpeech && (
-                  <span className="rounded-md bg-gray-200 px-2 py-1 text-sm italic dark:bg-gray-800">
+                  <span className="rounded-md bg-gray-200 px-2 py-1 text-sm italic ">
                     {definition.PartOfSpeech}
                   </span>
                 )}
@@ -102,19 +115,19 @@ export default function FlashcardUI({ word, onRate }: FlashcardUIProps) {
             <div className="my-4 h-1 w-16 rounded-full bg-blue-500/30" />
 
             <div className="w-full">
-              <h3 className="mb-2 text-2xl font-semibold text-blue-600 dark:text-blue-400">
+              <h3 className="mb-2 text-2xl font-semibold text-blue-600 ">
                 {definition?.DefinitionVi || 'Chưa có nghĩa tiếng Việt'}
               </h3>
               {definition?.DefinitionEn && (
-                <p className="mb-4 text-gray-600 italic dark:text-gray-300">
+                <p className="mb-4 text-gray-600 italic ">
                   "{definition.DefinitionEn}"
                 </p>
               )}
             </div>
 
             {definition?.ExampleEn && (
-              <div className="mt-4 w-full rounded-2xl bg-blue-50/50 p-4 text-left dark:bg-blue-900/20">
-                <p className="font-medium text-gray-800 dark:text-gray-200">
+              <div className="mt-4 w-full rounded-2xl bg-blue-50/50 p-4 text-left ">
+                <p className="font-medium text-gray-800 ">
                   {definition.ExampleEn}
                 </p>
                 {definition.ExampleVi && (
@@ -126,11 +139,11 @@ export default function FlashcardUI({ word, onRate }: FlashcardUIProps) {
         </div>
       </div>
 
-      {/* SM-2 Rating Buttons - Only visible when flipped */}
+      {/* SM-2 Rating Buttons - Only visible after first flip */}
       <div
         className={cn(
           'mt-10 w-full transform transition-all duration-500',
-          isFlipped ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-10 opacity-0',
+          hasFlippedOnce ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-10 opacity-0',
         )}
       >
         <p className="mb-4 text-center text-sm font-medium tracking-widest text-gray-500 uppercase">

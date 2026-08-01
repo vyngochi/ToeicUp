@@ -12,6 +12,7 @@ export type UserResponse = {
   AvatarUrl: string | null
   WordsPerDay: number | null
   IsLoginExternal: boolean | null
+  LastStudyDate: string | null
 }
 
 export type UploadAvatarResponse = { AvatarUrl: string | null }

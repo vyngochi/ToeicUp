@@ -1,4 +1,3 @@
-import { useThemeStore } from '@/stores/global/themeStore'
 import { Separator } from '../ui/separator'
 import { generateLogo } from '@/utils/generateLogoByTheme'
 import { Copyright } from 'lucide-react'
@@ -19,13 +18,12 @@ const PolicyMenu: FooterMenu = {
 }
 
 export default function LandingFooter() {
-  const { theme } = useThemeStore()
   return (
     <div className="mt-10 flex justify-center bg-gray-50/50 py-12">
       <div className="w-full max-w-6xl px-6 md:px-12">
         <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-6 lg:col-span-5">
-            <img src={generateLogo(theme)} alt="logo-footer" className="mb-6 w-20 md:w-24" />
+            <img src={generateLogo()} alt="logo-footer" className="mb-6 w-20 md:w-24" />
             <div className="text-sm leading-relaxed text-gray-600 max-w-sm">
               Nền tảng học từ vựng và luyện thi TOEIC thông minh với AI. Giúp bạn đạt điểm mục tiêu
               nhanh hơn.

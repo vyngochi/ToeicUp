@@ -47,7 +47,7 @@ export default function AvatarConfig({ user }: AvatarConfigProps) {
       >
         <button
           onClick={() => setIsOpenAvatarDialog(!isOpenAvatarDialog)}
-          className="absolute right-0 bottom-0 rounded-full bg-white p-1 shadow-md transition hover:scale-105 dark:bg-gray-800"
+          className="absolute right-0 bottom-0 rounded-full bg-white p-1 shadow-md transition hover:scale-105 "
         >
           <UserRoundPen className="h-4 w-4 md:h-5 md:w-5" />
         </button>

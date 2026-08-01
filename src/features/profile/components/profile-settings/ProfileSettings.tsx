@@ -40,8 +40,8 @@ export default function ProfileSettings() {
           onClick={() => toggleSection('goals')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-green-100 p-2.5 dark:bg-green-900/30">
-              <Target className="h-5 w-5 text-green-600 dark:text-green-400" />
+            <div className="rounded-lg bg-green-100 p-2.5 ">
+              <Target className="h-5 w-5 text-green-600 " />
             </div>
             <div>
               <h3 className="font-semibold">Mục tiêu học tập</h3>
@@ -86,8 +86,8 @@ export default function ProfileSettings() {
           onClick={() => toggleSection('notifications')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-blue-100 p-2.5 dark:bg-blue-900/30">
-              <Bell className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <div className="rounded-lg bg-blue-100 p-2.5 ">
+              <Bell className="h-5 w-5 text-blue-600 " />
             </div>
             <div>
               <h3 className="font-semibold">Thông báo</h3>
@@ -139,8 +139,8 @@ export default function ProfileSettings() {
           onClick={() => toggleSection('privacy')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-yellow-100 p-2.5 dark:bg-yellow-900/30">
-              <ShieldCheck className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
+            <div className="rounded-lg bg-yellow-100 p-2.5 ">
+              <ShieldCheck className="h-5 w-5 text-yellow-600 " />
             </div>
             <div>
               <h3 className="font-semibold">Quyền riêng tư</h3>
@@ -190,8 +190,8 @@ export default function ProfileSettings() {
           onClick={() => toggleSection('appearance')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-purple-100 p-2.5 dark:bg-purple-900/30">
-              <Palette className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+            <div className="rounded-lg bg-purple-100 p-2.5 ">
+              <Palette className="h-5 w-5 text-purple-600 " />
             </div>
             <div>
               <h3 className="font-semibold">Giao diện & Ngôn ngữ</h3>
@@ -245,8 +245,8 @@ export default function ProfileSettings() {
           onClick={() => toggleSection('account')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-red-100 p-2.5 dark:bg-red-900/30">
-              <Database className="h-5 w-5 text-red-600 dark:text-red-400" />
+            <div className="rounded-lg bg-red-100 p-2.5 ">
+              <Database className="h-5 w-5 text-red-600 " />
             </div>
             <div>
               <h3 className="text-destructive font-semibold">Dữ liệu & Tài khoản</h3>

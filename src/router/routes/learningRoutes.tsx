@@ -9,7 +9,10 @@ import VocabularyPage from '@/pages/learning/vocabulary'
 const WordSetPage = lazy(() => import('../../pages/learning/vocabulary/word-sets.page'))
 const WordTablePage = lazy(() => import('../../pages/learning/vocabulary/word-table.page'))
 const SrsReviewPage = lazy(() => import('../../pages/learning/vocabulary/srs-review.page'))
-const FlashcardDashboardPage = lazy(() => import('../../pages/learning/vocabulary/flashcard-dashboard.page'))
+const FlashcardDashboardPage = lazy(
+  () => import('../../pages/learning/vocabulary/flashcard-dashboard.page'),
+)
+const DashboardPage = lazy(() => import('../../pages/learning/dashboard.page'))
 
 export const learningRoutes: RouteObject[] = [
   {
@@ -19,7 +22,7 @@ export const learningRoutes: RouteObject[] = [
       </ProtectedRoute>
     ),
     children: [
-      { path: 'dashboard', element: <div>heheheheh</div> },
+      { path: 'dashboard', element: <DashboardPage /> },
       {
         path: 'vocabulary',
         element: <VocabularyPage />,

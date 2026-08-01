@@ -25,11 +25,11 @@ import {
 //Menu học viên
 const LEARNER_SIDEBAR = [
   {
-    label: 'Main',
+    label: 'Chính',
     items: [{ to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' }],
   },
   {
-    label: 'Vocabulary',
+    label: 'Từ vựng',
     items: [
       { to: '/vocabulary', icon: BookOpen, label: 'Từ vựng' },
       { to: '/vocabulary/flashcard', icon: Layers, label: 'Flashcard' },
@@ -37,15 +37,11 @@ const LEARNER_SIDEBAR = [
     ],
   },
   {
-    label: 'Exercise',
+    label: 'Luyện tập',
     items: [
       { to: '/exercise', icon: PenLine, label: 'Luyện đọc' },
       { to: '/listening', icon: Headphones, label: 'Luyện nghe' },
     ],
-  },
-  {
-    label: 'Analytics',
-    items: [{ to: '/statistics', icon: BarChart2, label: 'Thống kê' }],
   },
 ]
 

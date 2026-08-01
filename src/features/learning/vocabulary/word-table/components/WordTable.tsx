@@ -92,7 +92,7 @@ export function WordTables<TData, TValue>({
       </div>
       <div className="flex-1 overflow-auto rounded-md border shadow-sm min-h-0">
         <Table className="min-w-[800px] relative">
-          <TableHeader className="sticky top-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md z-10 shadow-sm">
+          <TableHeader className="sticky top-0 bg-white/90  backdrop-blur-md z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

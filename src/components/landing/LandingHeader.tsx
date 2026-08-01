@@ -1,5 +1,3 @@
-import { useThemeStore } from '@/stores/global/themeStore'
-import ThemeToggle from '../common/ThemeToggle'
 import { Button } from '../ui/button'
 import * as S from './styles/Header.styled'
 import { LayoutPanelLeft } from 'lucide-react'
@@ -23,12 +21,8 @@ const headerMenuList: MenuList[] = [
 ]
 
 export default function LandingHeader() {
-  const theme = useThemeStore((s) => s.theme)
-  const toggleTheme = useThemeStore((s) => s.toggleTheme)
   const scrolled = useScrolled()
   const navigate = useNavigate()
-
-  console.log(theme)
 
   return (
     <S.HeaderWrapper
@@ -36,11 +30,11 @@ export default function LandingHeader() {
       className={cn(
         'fixed top-0 right-0 left-0 z-50 transition-all duration-300',
         scrolled
-          ? 'glass dark:glass-dark border-b-0'
+          ? 'glass  border-b-0'
           : 'bg-transparent border-transparent',
       )}
     >
-      <img key={theme} className="h-auto w-15 md:h-auto md:w-20" src={generateLogo(theme)} />
+      <img className="h-auto w-15 md:h-auto md:w-20" src={generateLogo()} />
       <div className="hidden list-none font-bold sm:flex sm:gap-8 sm:text-[14px] md:gap-15 md:text-[16px] lg:gap-30">
         {headerMenuList.map((menu) => (
           <a
@@ -62,9 +56,8 @@ export default function LandingHeader() {
         >
           Đăng ký
         </Button>
-        <ThemeToggle />
       </div>
-      <DropdownMenuBasic theme={theme} toggleTheme={toggleTheme}>
+      <DropdownMenuBasic>
         <LayoutPanelLeft className="font-bold hover:text-amber-400 sm:hidden" />
       </DropdownMenuBasic>
     </S.HeaderWrapper>

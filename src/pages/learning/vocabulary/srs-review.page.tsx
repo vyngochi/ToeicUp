@@ -8,6 +8,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import LearningLoading from '@/components/common/LearningLoading'
 import { toast } from 'sonner'
 import { api } from '@/configs/axios'
+import { useAuthStore } from '@/stores/global/authStore'
 
 export default function SrsReviewPage() {
   const navigate = useNavigate()
@@ -40,8 +41,28 @@ export default function SrsReviewPage() {
         setCurrentIndex((prev) => prev + 1)
       } else {
         // Finished all words
-        setCurrentIndex((prev) => prev + 1) // Increment to show completion screen
+        setCurrentIndex((prev) => prev + 1)
         toast.success('Tuyệt vời! Bạn đã hoàn thành bài ôn tập.')
+        useAuthStore.setState(state => {
+          if (!state.user) return state
+          
+          const now = new Date()
+          const lastStudy = state.user.LastStudyDate ? new Date(state.user.LastStudyDate) : null
+          
+          let newStreak = state.user.Streak
+          if (!lastStudy || (lastStudy.getDate() !== now.getDate() || lastStudy.getMonth() !== now.getMonth() || lastStudy.getFullYear() !== now.getFullYear())) {
+             // Only increment locally if not already studied today. Note: True logic is handled in backend. We just do a simple +1 for immediate UI reflect.
+             newStreak += 1
+          }
+          
+          return {
+            user: {
+              ...state.user,
+              Streak: newStreak,
+              LastStudyDate: now.toISOString()
+            }
+          }
+        })
         queryClient.invalidateQueries({ queryKey: ['srs-daily'] })
       }
     },
@@ -49,7 +70,7 @@ export default function SrsReviewPage() {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gray-50/50 dark:bg-black/50">
+      <div className="flex h-screen items-center justify-center bg-gray-50/50 ">
         <LearningLoading text="thẻ học" />
       </div>
     )
@@ -59,17 +80,17 @@ export default function SrsReviewPage() {
   const isCompleted = currentIndex >= words.length
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <div className="relative flex min-h-screen w-full flex-col overflow-hidden bg-slate-50 ">
       {/* Decorative Blob */}
-      <div className="pointer-events-none absolute top-0 right-0 h-[800px] w-[800px] translate-x-1/3 -translate-y-1/2 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-900/20" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-[600px] w-[600px] -translate-x-1/3 translate-y-1/3 rounded-full bg-orange-300/20 blur-3xl dark:bg-orange-900/20" />
+      <div className="pointer-events-none absolute top-0 right-0 h-[800px] w-[800px] translate-x-1/3 -translate-y-1/2 rounded-full bg-blue-300/20 blur-3xl " />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-[600px] w-[600px] -translate-x-1/3 translate-y-1/3 rounded-full bg-orange-300/20 blur-3xl " />
 
       {/* Header (Minimal) */}
       <header className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between p-6">
         <Button
           variant="ghost"
           onClick={() => navigate(-1)}
-          className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          className="text-gray-500 hover:text-gray-900 :text-white"
         >
           <ArrowLeft className="mr-2" size={20} /> Thoát (Esc)
         </Button>
@@ -115,7 +136,7 @@ export default function SrsReviewPage() {
       </main>
 
       {/* Progress Bar */}
-      <div className="fixed bottom-0 left-0 h-2 w-full bg-gray-200 dark:bg-gray-800">
+      <div className="fixed bottom-0 left-0 h-2 w-full bg-gray-200 ">
         <div
           className="h-full bg-blue-600 transition-all duration-500 ease-out"
           style={{

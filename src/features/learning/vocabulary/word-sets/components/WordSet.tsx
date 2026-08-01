@@ -43,9 +43,9 @@ export default function WordSet() {
   const { data, isFetching } = useGetListWordSetsWithTopics({ searchKey: debouncedSearch })
 
   return (
-    <div className="w-full px-4 py-6 md:px-6 lg:py-8">
+    <div className="w-full px-4 py-6 md:px-1 lg:py-1">
       <div className="mb-8 flex items-center justify-between gap-4">
-        <h1 className="hidden text-3xl font-bold tracking-tight text-slate-800 md:block dark:text-slate-100">
+        <h1 className="hidden text-3xl font-bold tracking-tight text-slate-800 md:block">
           Bộ từ vựng
         </h1>
 
@@ -53,7 +53,7 @@ export default function WordSet() {
           <div className="relative flex-1">
             <Search className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400" size={18} />
             <Input
-              className="h-11 rounded-xl border-slate-200 bg-white pl-10 dark:border-slate-800 dark:bg-slate-900"
+              className="h-11 rounded-xl border-slate-200 bg-white pl-10"
               placeholder="Tìm kiếm..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -64,9 +64,9 @@ export default function WordSet() {
             <SheetTrigger asChild>
               <Button
                 variant="outline"
-                className="relative h-11 w-11 rounded-xl border-slate-200 bg-white p-0 dark:border-slate-800 dark:bg-slate-900"
+                className="relative h-11 w-11 rounded-xl border-slate-200 bg-white p-0"
               >
-                <ListFilter size={20} className="text-slate-600 dark:text-slate-300" />
+                <ListFilter size={20} className="text-slate-600" />
                 {levelFilter !== null && (
                   <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">
                     1
@@ -133,13 +133,11 @@ const WordSetList = ({ data, levelFilter }: WordSetListProps) => {
   return filteredTopics.map((topic) => (
     <div key={topic.id} className="mb-14">
       <div className="mb-6 flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
           <Library size={20} />
         </div>
-        <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-100">
-          {topic.name}
-        </h2>
-        <span className="ml-2 rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-800">{topic.name}</h2>
+        <span className="ml-2 rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-500">
           {topic.word_sets.length} bộ
         </span>
       </div>

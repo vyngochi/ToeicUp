@@ -24,7 +24,6 @@ export function ProfileSidebar() {
   const navigate = useNavigate()
   //   const theme = useThemeStore((s) => s.theme)
   const NAV_SECTIONS = GetProfileSidebar(user)
-  const isActive = (path: string) => (location.pathname.includes(path) ? true : false)
 
   return (
     <Sidebar collapsible="icon" className="z-1001">
@@ -59,20 +58,24 @@ export function ProfileSidebar() {
           <SidebarGroup key={section.label}>
             <SidebarGroupLabel>{section.label}</SidebarGroupLabel>
             <SidebarMenu>
-              {section.items.map((item) => (
-                <SidebarMenuItem key={item.to}>
-                  <SidebarMenuButton asChild tooltip={item.label}>
-                    <NavLink
-                      to={item.to}
-                      end
-                      className={cn(isActive(item.to) ? 'font-bold text-blue-600' : '')}
-                    >
-                      <item.icon />
-                      <span>{item.label}</span>
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {section.items.map((item) => {
+                const isItemActive = location.pathname.includes(item.to)
+
+                return (
+                  <SidebarMenuItem key={item.to}>
+                    <SidebarMenuButton asChild tooltip={item.label} isActive={isItemActive}>
+                      <NavLink
+                        to={item.to}
+                        end
+                        className={cn(isItemActive ? 'font-bold !text-blue-600' : '')}
+                      >
+                        <item.icon />
+                        <span>{item.label}</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
             </SidebarMenu>
           </SidebarGroup>
         ))}

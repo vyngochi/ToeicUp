@@ -1,12 +1,10 @@
 import { AuthenticationTabs } from '@/components/common/AuthenticationTabs'
 import { Button } from '@/components/ui/button'
-import { useThemeStore } from '@/stores/global/themeStore'
 import { generateLogo } from '@/utils/generateLogoByTheme'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 export default function AuthLayout() {
-  const { theme } = useThemeStore()
-  const logo = generateLogo(theme)
+  const logo = generateLogo()
   const navigate = useNavigate()
   return (
     <div className="h-screen">
@@ -24,8 +22,7 @@ export default function AuthLayout() {
 }
 
 export const AuthLayoutNoTabs = () => {
-  const { theme } = useThemeStore()
-  const logo = generateLogo(theme)
+  const logo = generateLogo()
   const navigate = useNavigate()
   return (
     <div className="flex h-screen flex-col">

@@ -58,8 +58,8 @@ export default function SecurityPage() {
           onClick={() => toggleSection('2fa')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-orange-100 p-2.5 dark:bg-orange-900/30">
-              <Smartphone className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+            <div className="rounded-lg bg-orange-100 p-2.5 ">
+              <Smartphone className="h-5 w-5 text-orange-600 " />
             </div>
             <div>
               <h3 className="font-semibold">Xác minh 2 lớp (2FA)</h3>
@@ -76,7 +76,7 @@ export default function SecurityPage() {
         </div>
         {expandedSection === '2fa' && (
           <div className="space-y-6 border-t p-6">
-            <div className="rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
+            <div className="rounded-lg bg-blue-50 p-4 ">
               <p className="text-muted-foreground text-sm">
                 Thêm lớp bảo mật bổ sung cho tài khoản của bạn. Khi bật, bạn sẽ cần nhập mã xác minh
                 từ ứng dụng authenticator hoặc SMS.
@@ -112,8 +112,8 @@ export default function SecurityPage() {
           onClick={() => toggleSection('devices')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-purple-100 p-2.5 dark:bg-purple-900/30">
-              <Activity className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+            <div className="rounded-lg bg-purple-100 p-2.5 ">
+              <Activity className="h-5 w-5 text-purple-600 " />
             </div>
             <div>
               <h3 className="font-semibold">Thiết bị hoạt động</h3>
@@ -129,7 +129,7 @@ export default function SecurityPage() {
         {expandedSection === 'devices' && (
           <div className="space-y-4 border-t p-6">
             {/* Current Device */}
-            <div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-900 dark:bg-green-900/20">
+            <div className="rounded-lg border border-green-200 bg-green-50 p-4  ">
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -175,8 +175,8 @@ export default function SecurityPage() {
           onClick={() => toggleSection('activity')}
         >
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-indigo-100 p-2.5 dark:bg-indigo-900/30">
-              <Activity className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+            <div className="rounded-lg bg-indigo-100 p-2.5 ">
+              <Activity className="h-5 w-5 text-indigo-600 " />
             </div>
             <div>
               <h3 className="font-semibold">Lịch sử đăng nhập</h3>

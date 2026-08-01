@@ -30,7 +30,7 @@ export function DropdownMenuAvatar() {
             <Avatar>
               <AvatarImage src={user?.AvatarUrl ?? 'https://github.com/shadcn.png'} />
               <AvatarFallback>TUP</AvatarFallback>
-              <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+              <AvatarBadge className="bg-green-600 " />
             </Avatar>
           )}
         </Button>
